@@ -8,8 +8,9 @@
         {
             "name": "PlatformIO",
             "includePath": [
-                "/home/ben/Projects/raspigrow/include",
-                "/home/ben/Projects/raspigrow/src",
+                "/home/ben/Projects/grow/client/include",
+                "/home/ben/Projects/grow/client/src",
+                "/home/ben/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266WiFi/src",
                 "/home/ben/.platformio/packages/framework-arduinoespressif8266/tools/sdk/include",
                 "/home/ben/.platformio/packages/framework-arduinoespressif8266/cores/esp8266",
                 "/home/ben/.platformio/packages/toolchain-xtensa/include",
@@ -26,7 +27,6 @@
                 "/home/ben/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266SSDP",
                 "/home/ben/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266SdFat/src",
                 "/home/ben/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266WebServer/src",
-                "/home/ben/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266WiFi/src",
                 "/home/ben/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266WiFiMesh/src",
                 "/home/ben/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266httpUpdate/src",
                 "/home/ben/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266mDNS/src",
@@ -56,8 +56,9 @@
             "browse": {
                 "limitSymbolsToIncludedHeaders": true,
                 "path": [
-                    "/home/ben/Projects/raspigrow/include",
-                    "/home/ben/Projects/raspigrow/src",
+                    "/home/ben/Projects/grow/client/include",
+                    "/home/ben/Projects/grow/client/src",
+                    "/home/ben/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266WiFi/src",
                     "/home/ben/.platformio/packages/framework-arduinoespressif8266/tools/sdk/include",
                     "/home/ben/.platformio/packages/framework-arduinoespressif8266/cores/esp8266",
                     "/home/ben/.platformio/packages/toolchain-xtensa/include",
@@ -74,7 +75,6 @@
                     "/home/ben/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266SSDP",
                     "/home/ben/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266SdFat/src",
                     "/home/ben/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266WebServer/src",
-                    "/home/ben/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266WiFi/src",
                     "/home/ben/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266WiFiMesh/src",
                     "/home/ben/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266httpUpdate/src",
                     "/home/ben/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266mDNS/src",
