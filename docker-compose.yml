@@ -1,11 +1,21 @@
 version: "3.8"
 services:
+  app:
+    image: grow-app:latest
+    container_name: grow-app
+    build: app
+    ports:
+      - "8080:80"
+    depends_on:
+      - api
   api:
-    image: grow:latest
-    container_name: grow
+    image: grow-api:latest
+    container_name: grow-api
     build: api
     ports:
       - "8000:8000"
+    depends_on:
+      - redis
   redis:
     image: redis:6.2-alpine
     container_name: redis
