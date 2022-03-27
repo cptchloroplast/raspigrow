@@ -1,5 +1,13 @@
 version: "3.8"
 services:
+  api:
+    image: grow:latest
+    container_name: grow
+    build: api
+    ports:
+      - "8000:8000"
   redis:
     image: redis:6.2-alpine
     container_name: redis
+    ports:
+      - "6379:6379"
