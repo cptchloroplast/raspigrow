@@ -30,4 +30,5 @@ services:
     volumes: 
       - /home/pi/certbot/conf:/etc/letsencrypt
       - /home/pi/certbot/www:/var/www/certbot
+      - /home/pi/certbot/logs:/var/log/letsencrypt
     command: certonly --webroot -w /var/www/certbot --force-renewal --email correos@okkema.org -d grow.okkema.org --agree-tos
