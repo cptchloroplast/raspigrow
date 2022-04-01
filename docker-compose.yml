@@ -29,5 +29,5 @@ services:
     volumes: 
       - /home/pi/certbot/conf:/etc/letsencrypt
       - /home/pi/certbot/logs:/var/log/letsencrypt
-      - /home/pi/certbot/cloudflare.ini:/cloudlfare.ini
+      - /home/pi/certbot/cloudflare.ini:/cloudflare.ini
     command: certonly --dns-cloudflare --dns-cloudflare-credentials /cloudflare.ini --force-renewal --email ben@okkema.org -d grow.okkema.org --agree-tos
