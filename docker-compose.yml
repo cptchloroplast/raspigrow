@@ -30,4 +30,4 @@ services:
       - /home/${GH_RUNNER_USER}/certbot/conf:/etc/letsencrypt
       - /home/${GH_RUNNER_USER}/certbot/logs:/var/log/letsencrypt
       - /home/${GH_RUNNER_USER}/certbot/cloudflare.ini:/cloudlfare.ini
-    command: certonly --dns-cloudflare --dns-cloudflare-credentials /cloudflare.ini --force-renewal --email ${CLOUDFLARE_EMAIL} -d ${CLOUDFLARE_DOMAIN} --agree-tos
+    command: certonly --dns-cloudflare --dns-cloudflare-credentials /cloudflare.ini --force-renewal --email "$CLOUDFLARE_EMAIL" -d "$CLOUDFLARE_DOMAIN" --agree-tos
