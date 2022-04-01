@@ -14,7 +14,7 @@ html = """
     </head>
     <body>
         <script>
-            const evtSource = new EventSource("http://localhost:8000/sse/stream");
+            const evtSource = new EventSource("/sse/stream");
             evtSource.addEventListener("message", function(event) {
                 // Logic to handle status updates
                 console.log(event.data)
