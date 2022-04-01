@@ -10,6 +10,7 @@ h11==0.13.0
 hiredis==2.0.0
 idna==3.3
 pydantic==1.9.0
+python-dotenv==0.20.0
 python-json-logger==2.0.2
 sniffio==1.2.0
 sse-starlette==0.10.3

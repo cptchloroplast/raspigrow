@@ -4,6 +4,7 @@ from fastapi.params import Depends
 from fastapi_plugins import depends_redis, redis_plugin
 from sse_starlette.sse import EventSourceResponse
 from starlette.responses import HTMLResponse
+from .settings import Settings
 
 html = """
 <!DOCTYPE html>
@@ -23,13 +24,12 @@ html = """
 </html>
 """
 
-
 app = FastAPI()
-
+settings = Settings()
 
 @app.on_event("startup")
 async def on_startup() -> None:
-    await redis_plugin.init_app(app)
+    await redis_plugin.init_app(app, config=settings)
     await redis_plugin.init()
 
 
