@@ -6,6 +6,8 @@ services:
     build: app
     ports:
       - "80:80"
+    volumes:
+      - /home/${GH_RUNNER_USER}/certbot/conf:/etc/letsencrypt
     depends_on:
       - api
   api:
@@ -21,3 +23,11 @@ services:
     container_name: redis
     ports:
       - "6379:6379"
+  certbot:
+    image: certbot/dns-cloudflare:arm64v8-v1.25.0
+    container_name: certbot
+    volumes: 
+      - /home/${GH_RUNNER_USER}/certbot/conf:/etc/letsencrypt
+      - /home/${GH_RUNNER_USER}/certbot/logs:/var/log/letsencrypt
+      - /home/${GH_RUNNER_USER}/certbot/cloudflare.ini:/cloudlfare.ini
+    command: certonly --dns-cloudflare --dns-cloudflare-credentials /cloudflare.ini --force-renewal --email ${CLOUDFLARE_EMAIL} -d ${CLOUDFLARE_DOMAIN} --agree-tos
