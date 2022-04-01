@@ -12,6 +12,8 @@ services:
     image: grow-api:latest
     container_name: grow-api
     build: api
+    environment:
+      - REDIS_HOST=redis
     ports:
       - "8000:8000"
     depends_on:
