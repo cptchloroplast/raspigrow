@@ -9,4 +9,4 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Deploy with Docker Compose
-        run: whoami
+        run: docker build -t grow-api api
