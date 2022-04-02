@@ -4,6 +4,7 @@ function App() {
       // Logic to handle status updates
       console.log(event.data)
   });  
+  
   return (
     <div>Grow</div>
   )
