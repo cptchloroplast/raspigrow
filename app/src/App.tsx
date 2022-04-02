@@ -1,9 +1,7 @@
+import useSensors from "./useSensors"
+
 function App() {
-  const evtSource = new EventSource("http://localhost:8000/stream");
-  evtSource.addEventListener("message", function(event) {
-      // Logic to handle status updates
-      console.log(event.data)
-  });  
+  useSensors() 
   
   return (
     <div>Grow</div>
