@@ -1,3 +1,4 @@
+from typing import List
 from aioredis import Channel, Redis
 
 

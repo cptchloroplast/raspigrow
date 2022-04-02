@@ -10,7 +10,7 @@
 // }
 
 void test_led_builtin_pin_number(void) {
-    TEST_ASSERT_EQUAL(13, LED_BUILTIN);
+    TEST_ASSERT_EQUAL(2, LED_BUILTIN);
 }
 
 void test_led_state_high(void) {

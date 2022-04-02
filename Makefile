@@ -2,6 +2,8 @@
 build: build-app
 build-app:
 	npm --prefix app run build
+build-client:
+	pio run -d client
 
 # develop
 dev: start-redis dev-api dev-app
@@ -27,3 +29,11 @@ stop-api:
 	docker-compose stop api
 stop-redis:
 	docker-compose stop redis
+
+# watch
+watch:
+	pio device monitor
+
+# upload
+upload:
+	pio run -d client -t upload
