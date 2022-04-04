@@ -1,6 +1,6 @@
 FROM python:3.9-alpine as build
 RUN apk update
-RUN apk add python3-dev gcc libc-dev
+RUN apk --no-cache add python3-dev gcc libc-dev g++
 COPY requirements.txt .
 RUN python -m venv /opt/venv
 ENV PATH="/opt/venv/bin:$PATH"
