@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from .redis import start_redis, stop_redis
+from .redis import start_redis_context, stop_redis_context
 from .settings import Settings
 from .routers import stream
 
@@ -17,11 +17,11 @@ def create_app(settings: Settings):
   )
 
   @app.on_event("startup")
-  def on_startup():
-    start_redis(app, settings)
+  async def on_startup():
+    await start_redis_context(app, settings)
 
   @app.on_event("shutdown")
   async def on_shutdown():
-    await stop_redis(app)
+    await stop_redis_context(app)
   
   return app
