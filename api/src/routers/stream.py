@@ -1,7 +1,7 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Request
 from sse_starlette import EventSourceResponse
 
-from ..redis import RedisContext, get_redis_context, listener
+from ..redis import RedisContext, get_redis_context
 
 router = APIRouter()
 
@@ -10,11 +10,11 @@ async def get(channel: str = "default", context: RedisContext = Depends(get_redi
     await context.redis.publish(channel, "Hello world!")
     return "ok"
 
-def handler(message: dict):
-    return {"event": "message", "data": message}
-
 @router.get("/stream")
-async def stream(channel: str = "default", context: RedisContext = Depends(get_redis_context)):
-    return EventSourceResponse(listener(context.pubsub))
+async def stream(request: Request, channel: str = "default", context: RedisContext = Depends(get_redis_context)):
+    async def get_event():
+        async for message in context.subscribe(channel, cancelled=request.is_disconnected):
+            yield { "event": "message", "data": message }
+    return EventSourceResponse(get_event())
 
 
