@@ -2,7 +2,7 @@ import { useEffect } from "react"
 
 const useSensors = () => {
   useEffect(() => {
-    const eventSource = new EventSource("http://localhost:8000/stream");
+    const eventSource = new EventSource("/api/stream");
     eventSource.addEventListener("message", function(event) {
       // Logic to handle status updates
       console.log(event.data)
