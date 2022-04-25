@@ -11,18 +11,18 @@ const long interval = 2000;
 
 void initRedis() {
   Serial.println("Starting Redis...");
-  if(!client.connect(HOST, PORT)) {
-    Serial.println("Error connecting to Redis host");
+  while(!client.connect(HOST, REDIS_PORT)) {
+    delay(2000);
+    Serial.println(".");
   }
   redis = new Redis(client);
   Serial.println("Redis started");
 }
 
-void publishRedis(char* channel, char* message) {
-  unsigned long currentMillis = millis();
-  if(currentMillis - prev >= interval) {
-    Serial.println("Publish");
+void publishRedis(char* channel, const char* message) {
+  unsigned long current = millis();
+  if(current - prev >= interval) {
     auto listeners = redis->publish(channel, message);
-    prev = currentMillis;
+    prev = current;
   }
 }

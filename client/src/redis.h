@@ -1,4 +1,4 @@
-#define PORT 6789
+#define REDIS_PORT 6379
 
 void initRedis();
-void publishRedis(char* channel, char* message);
+void publishRedis(char* channel, const char* message);

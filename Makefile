@@ -32,7 +32,7 @@ stop-redis:
 
 # watch
 watch:
-	pio device monitor
+	pio device monitor -b 115200
 
 # upload
 upload:

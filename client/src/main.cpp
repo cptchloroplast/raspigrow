@@ -19,6 +19,9 @@ void setup(void)
  
 void loop()
 {
-  publishRedis("default", "test");
+  StaticJsonDocument<DHTSIZE> doc = readDHT();
+  String json = "";
+  serializeJson(doc, json);
+  publishRedis("default", json.c_str());
   handleServer();
 } 

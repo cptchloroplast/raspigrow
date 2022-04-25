@@ -5,7 +5,7 @@
 DHT dht(DHTPIN, DHTTYPE);
 StaticJsonDocument<DHTSIZE> doc;
 
-unsigned long previousMillis = 0;
+unsigned long previous = 0;
 const long interval = 2000;
 
 void initDHT() {
@@ -15,11 +15,11 @@ void initDHT() {
 }
 
 StaticJsonDocument<DHTSIZE> readDHT() {
-  unsigned long currentMillis = millis();
-  if(currentMillis - previousMillis >= interval) {
+  unsigned long current = millis();
+  if(current - previous >= interval) {
     doc["temperature"] = dht.readTemperature();
     doc["humidity"] = dht.readHumidity();
-    previousMillis = currentMillis;
+    previous = current;
   }
   return doc;
 }
