@@ -1,5 +1,8 @@
+from datetime import datetime
+from json import dumps
 from fastapi import APIRouter, Depends, Request
 from sse_starlette import EventSourceResponse
+
 
 from ..redis import RedisContext, get_redis_context
 
@@ -14,7 +17,11 @@ async def get(channel: str = "default", context: RedisContext = Depends(get_redi
 async def stream(request: Request, channel: str = "default", context: RedisContext = Depends(get_redis_context)):
     async def get_event():
         async for message in context.subscribe(channel, cancelled=request.is_disconnected):
-            yield { "event": "message", "data": message }
+            yield dumps({ 
+                "timestamp": datetime.now(), 
+                "event": "message", 
+                "data": message 
+            }, default=str)
     return EventSourceResponse(get_event())
 
 

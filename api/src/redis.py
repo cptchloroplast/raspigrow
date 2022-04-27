@@ -1,5 +1,6 @@
 from asyncio import CancelledError, Task, sleep, TimeoutError, create_task
-from typing import Callable, List
+from json import loads
+from typing import Callable, Dict, List
 from async_timeout import timeout
 from redis.asyncio import Redis
 from redis.asyncio.client import PubSub
@@ -35,12 +36,21 @@ class RedisContext:
         async with timeout(1):
           message = await pubsub.get_message(ignore_subscribe_messages=True)
           if message:
+            self._process(message)
             yield message
             await sleep(0.01)
       except TimeoutError:
         pass
       except CancelledError:
         break
+
+  def _process(self, message: Dict[str, any]):
+    for key, value in message.items():
+      if isinstance(value, bytes):
+        decoded = value.decode("utf8")
+        if key is "data":
+          decoded = loads(decoded)
+        message[key] =  decoded
 
   def add_subscription(self, channel: str, handler: Callable[[dict], None]):
     async def loop():

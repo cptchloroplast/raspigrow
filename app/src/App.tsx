@@ -1,10 +1,13 @@
 import useSensors from "./useSensors"
 
 function App() {
-  useSensors() 
+  const data = useSensors()
+  const json = JSON.stringify(data, null, "\t")
   
   return (
-    <div>Grow</div>
+    <div>
+      <pre>{json}</pre>
+    </div>
   )
 }
 
