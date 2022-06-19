@@ -14,21 +14,21 @@ dev-app:
 
 # start
 start:
-	docker-compose up -d
+	docker compose up -d
 start-build:
-	docker-compose up -d --build
+	docker compose up -d --build
 start-api:
-	docker-compose up -d api
+	docker compose up -d api
 start-redis:
-	docker-compose up -d redis
+	docker compose up -d redis
 
 #stop
 stop:
-	docker-compose down
+	docker compose down
 stop-api:
-	docker-compose stop api
+	docker compose stop api
 stop-redis:
-	docker-compose stop redis
+	docker compose stop redis
 
 # watch
 watch:
