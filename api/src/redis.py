@@ -25,10 +25,9 @@ class RedisContext:
       task.cancel()
     await self.redis.close()
 
-  async def subscribe(self, channel: str, pubsub: PubSub = None, cancelled: Callable = None):
-    if not pubsub:
-      pubsub = self.redis.pubsub()
-      await pubsub.subscribe(channel)
+  async def _create_subscription(self, channel: str, cancelled: Callable = None):
+    pubsub = self.redis.pubsub()
+    await pubsub.subscribe(channel)
     while True:
       try:
         if cancelled and await cancelled():
@@ -36,7 +35,7 @@ class RedisContext:
         async with timeout(1):
           message = await pubsub.get_message(ignore_subscribe_messages=True)
           if message:
-            self._process(message)
+            self._process_message(message)
             yield message
             await sleep(0.01)
       except TimeoutError:
@@ -44,7 +43,7 @@ class RedisContext:
       except CancelledError:
         break
 
-  def _process(self, message: Dict[str, any]):
+  def _process_message(self, message: Dict[str, any]):
     for key, value in message.items():
       if isinstance(value, bytes):
         decoded = value.decode("utf8")
@@ -52,13 +51,15 @@ class RedisContext:
           decoded = loads(decoded)
         message[key] =  decoded
 
-  def add_subscription(self, channel: str, handler: Callable[[dict], None]):
+  def subscribe(self, channel: str, handler: Callable[[dict], None] = None, cancelled: Callable = None):
+    subscription = self._create_subscription(channel, cancelled)
     async def loop():
-      pubsub = self.redis.pubsub()
-      await pubsub.subscribe(**{channel: handler})
-      async for message in self.subscribe(channel, pubsub):
+      async for message in subscription:
+        if handler:
+          handler(message)
         pass
     self.subscriptions.append(create_task(loop()))
+    return subscription
 
 async def start_redis_context(app: FastAPI, settings: Settings):
   context = RedisContext(settings)

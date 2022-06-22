@@ -3,18 +3,23 @@ import LineChart from "./charts/LineChart"
 import useSensors from "./useSensors"
 
 function App() {
-  const data = useSensors()
-  const json = JSON.stringify(data, null, "\t")
+  const raw = useSensors()
+  const json = JSON.stringify(raw, null, "\t")
+  const [data, setData] = useState()
 
-  const chartData = [];
-    for (let i = 0; i < 20; i++) {
-      const value = Math.floor(Math.random() * i + 3);
-      chartData.push({
-        label: i,
-        value,
-        tooltipContent: `<b>x: </b>${i}<br><b>y: </b>${value}`
-      });
-    }
+  useEffect(() => {
+    setData(data => [...data, raw])
+  }, [raw])
+
+  // const chartData = [];
+  //   for (let i = 0; i < 20; i++) {
+  //     const value = Math.floor(Math.random() * i + 3);
+  //     chartData.push({
+  //       label: i,
+  //       value,
+  //       tooltipContent: `<b>x: </b>${i}<br><b>y: </b>${value}`
+  //     });
+  //   }
   
   return (
     <div>

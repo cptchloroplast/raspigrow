@@ -16,7 +16,8 @@ async def get(channel: str = "default", context: RedisContext = Depends(get_redi
 @router.get("/stream")
 async def stream(request: Request, channel: str = "default", context: RedisContext = Depends(get_redis_context)):
     async def get_event():
-        async for message in context.subscribe(channel, cancelled=request.is_disconnected):
+        subscription = context.subscribe(channel, cancelled=request.is_disconnected)
+        async for message in subscription:
             yield dumps({ 
                 "timestamp": datetime.now(), 
                 "event": "message", 
