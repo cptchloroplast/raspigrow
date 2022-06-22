@@ -19,7 +19,7 @@ def create_app(settings: Settings):
   @app.on_event("startup")
   async def on_startup():
     context = await start_redis_context(app, settings)
-    context.add_subscription("default", lambda x: print(x))
+    context.subscribe("default", lambda x: print(x))
 
   @app.on_event("shutdown")
   async def on_shutdown():

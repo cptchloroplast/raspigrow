@@ -23,19 +23,22 @@ const LineChart = ({ width, height, data }: LineChartProps) => {
       .append("g")
       .attr("transform", `translate(${margin.left},${margin.top})`)
   
-    const yMinValue = d3.min(data, (d) => d.value)
-    const yMaxValue = d3.max(data, (d) => d.value)
-    const xMinValue = d3.min(data, (d) => d.label)
-    const xMaxValue = d3.max(data, (d) => d.label)
+    const yMinValue = d3.min(data, (d) => d.y)
+    const yMaxValue = d3.max(data, (d) => d.y)
+    const xMinValue = d3.min(data, (d) => d.x)
+    const xMaxValue = d3.max(data, (d) => d.x)
     
+    const xDomainStart = xMaxValue < 100 ? 0 : xMaxValue - 100
+    const xDomainEnd = xMaxValue < 100 ? 100 : xMaxValue
+
     const xScale = d3
       .scaleLinear()
-      .domain([xMinValue, xMaxValue])
+      .domain([xDomainStart, xDomainEnd])
       .range([0, width])
     const yScale = d3
       .scaleLinear()
       .range([height, 0])
-      .domain([0, yMaxValue]);
+      .domain([yMinValue - 5, yMaxValue + 5]);
     svg
       .append("g")
       .attr("class", "grid")
@@ -48,15 +51,15 @@ const LineChart = ({ width, height, data }: LineChartProps) => {
 
     const line = d3
       .line()
-      .x((d: any) => xScale(d.label))
-      .y((d: any) => yScale(d.value))
+      .x((d: any) => xScale(d.x))
+      .y((d: any) => yScale(d.y))
       .curve(d3.curveMonotoneX);
     svg
       .append("path")
       .datum(data)
       .attr("fill", "none")
-      .attr("stroke", "#000000")
-      .attr("stroke-width", 1)
+      .attr("stroke", "red")
+      .attr("stroke-width", 2)
       .attr("class", "line")
       .attr("d", line);
   };
