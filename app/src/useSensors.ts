@@ -15,7 +15,7 @@ type SensorData = {
 }
 
 type SensorChart = {
-  x: number
+  x: Date
   y: number
 }
 
@@ -29,7 +29,7 @@ const useSensors = () => {
       const raw: SensorData = JSON.parse(event.data)
       setCurrent(raw)
       setChart(chart => [...chart, {
-        x: chart.length,
+        x: new Date(raw.timestamp),
         y: raw.data.data.temperature,
       }])
     });
