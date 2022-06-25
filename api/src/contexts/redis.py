@@ -3,11 +3,10 @@ from json import loads
 from typing import Callable, Dict, List
 from async_timeout import timeout
 from redis.asyncio import Redis
-from redis.asyncio.client import PubSub
 from fastapi import FastAPI
 from starlette.requests import Request
 
-from .settings import Settings
+from ..settings import Settings
 
 class RedisContext:
   settings: Settings
@@ -61,7 +60,7 @@ class RedisContext:
     self.subscriptions.append(create_task(loop()))
     return subscription
 
-async def start_redis_context(app: FastAPI, settings: Settings):
+def start_redis_context(app: FastAPI, settings: Settings):
   context = RedisContext(settings)
   context.start()
   app.state.redis = context

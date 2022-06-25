@@ -4,7 +4,7 @@ from fastapi import APIRouter, Depends, Request
 from sse_starlette import EventSourceResponse
 
 
-from ..redis import RedisContext, get_redis_context
+from ..contexts.redis import RedisContext, get_redis_context
 
 router = APIRouter()
 

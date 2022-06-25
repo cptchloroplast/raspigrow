@@ -16,14 +16,24 @@ services:
     container_name: grow-api
     build: api
     environment:
-      - REDIS_HOST=redis
+      REDIS_HOST: redis
+      DATABASE_URL: mysql+pymysql://root:password@mariadb/grow
     depends_on:
       - redis
+      - sql
   redis:
     image: redis:6.2-alpine
     container_name: redis
     ports:
       - "6379:6379"
+  sql:
+    image: mariadb:10.8.3
+    container_name: mariadb
+    environment:
+      MARIADB_ROOT_PASSWORD: password
+      MARIADB_DATABASE: grow
+    ports:
+      - "3306:3306"
   certbot:
     image: certbot/dns-cloudflare:arm64v8-v1.25.0
     container_name: certbot

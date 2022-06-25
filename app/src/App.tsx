@@ -4,7 +4,6 @@ import useSensors from "./useSensors"
 function App() {
   const { chart, current } = useSensors()
   const raw = JSON.stringify(current, null, "\t")
-  const stream = JSON.stringify(chart, null, "\t")
   
   return (
     <div>
