@@ -19,21 +19,25 @@ class SqlContext:
     engine = create_engine(self.settings.DATABASE_URL)
     metadata.create_all(engine) 
 
-  def start(self):
+  async def start(self):
     self.database = Database(url=self.settings.DATABASE_URL_ASYNC)
+    await self.database.connect()
     if self.settings.DATABASE_INIT:
       self._init_database()
 
-def start_sql_context(app: FastAPI, settings: Settings):
-  context = SqlContext(settings)
-  context.start()
-  app.state.sql = context
-  return context
+  async def stop(self):
+    await self.database.disconnect()
+
+async def start_sql_context(app: FastAPI, settings: Settings):
+  sql = SqlContext(settings)
+  await sql.start()
+  app.state.sql = sql
+  return sql
+
+async def stop_sql_context(app: FastAPI):
+  sql: SqlContext = app.state.sql
+  await sql.stop()
 
 async def get_sql_database(request: Request):
   sql: SqlContext = request.app.state.sql
-  await sql.database.connect()
-  try:
-    yield sql.database
-  finally:
-    await sql.database.disconnect()
+  return sql.database

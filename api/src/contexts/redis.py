@@ -55,16 +55,16 @@ class RedisContext:
     async def loop():
       async for message in subscription:
         if handler:
-          handler(message)
+          await handler(message)
         pass
     self.subscriptions.append(create_task(loop()))
     return subscription
 
 def start_redis_context(app: FastAPI, settings: Settings):
-  context = RedisContext(settings)
-  context.start()
-  app.state.redis = context
-  return context
+  redis = RedisContext(settings)
+  redis.start()
+  app.state.redis = redis
+  return redis
 
 async def stop_redis_context(app: FastAPI):
   redis: RedisContext = app.state.redis

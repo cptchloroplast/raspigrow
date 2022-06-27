@@ -1,11 +1,12 @@
 from datetime import datetime
+from typing import Optional
 from pydantic import BaseModel
 from sqlalchemy import Column, DateTime, Float, Integer, Table
 
 from ..contexts.sql import metadata
 
 class SensorReading(BaseModel):
-  id: int
+  id: Optional[int]
   timestamp: datetime
   temperature: float
   humidity: int
