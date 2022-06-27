@@ -9,13 +9,15 @@ def log_reading(sql: SqlContext, redis: RedisContext):
     db = sql.database
 
     async def log(message):
-        await sensor.create(
-            db,
-            SensorReading(
-                timestamp=datetime.utcnow(),
-                temperature=message["data"]["temperature"],
-                humidity=message["data"]["humidity"],
-            ),
+        reading = SensorReading(
+            timestamp=datetime.utcnow(),
+            temperature=message["data"]["temperature"],
+            humidity=message["data"]["humidity"],
         )
+        created = await sensor.create(
+            db,
+            reading,
+        )
+        print(created.json())
 
     redis.subscribe("default", log)
