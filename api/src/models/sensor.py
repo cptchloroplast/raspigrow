@@ -3,8 +3,6 @@ from typing import Optional
 from pydantic import BaseModel
 from sqlalchemy import Column, DateTime, Float, Integer, Table
 
-from ..contexts.sql import metadata
-
 class SensorReading(BaseModel):
   id: Optional[int]
   timestamp: datetime
@@ -13,6 +11,9 @@ class SensorReading(BaseModel):
 
   class Config:
     orm_mode = True
+
+from ..contexts.sql import metadata
+
 
 readings = Table("sensor_readings", metadata,
   Column("id", Integer, primary_key=True),

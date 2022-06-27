@@ -6,7 +6,7 @@ from ..settings import Settings
 
 metadata = MetaData()
 
-from ..models.sensor import readings
+# from ..models.sensor import readings
 
 class SqlContext:
   settings: Settings
