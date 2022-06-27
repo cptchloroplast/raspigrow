@@ -16,8 +16,10 @@ services:
     container_name: grow-api
     build: api
     environment:
-      REDIS_HOST: redis
-      DATABASE_URL: mysql+pymysql://root:password@mariadb/grow
+      REDIS_HOSTNAME: redis
+      DATABASE_USERNAME: root
+      DATABASE_PASSWORD: password
+      DATABASE_HOSTNAME: mariadb
     depends_on:
       - redis
       - sql
@@ -30,8 +32,8 @@ services:
     image: mariadb:10.8.3
     container_name: mariadb
     environment:
-      MARIADB_ROOT_PASSWORD: password
       MARIADB_DATABASE: grow
+      MARIADB_ROOT_PASSWORD: password
     ports:
       - "3306:3306"
   certbot:

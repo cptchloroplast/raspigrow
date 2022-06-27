@@ -7,7 +7,7 @@ class Settings(BaseSettings):
    TITLE = "Grow"
    
    # Redis
-   REDIS_HOST: str
+   REDIS_HOSTNAME: str
    
    # SQL
    DATABASE_USERNAME: str

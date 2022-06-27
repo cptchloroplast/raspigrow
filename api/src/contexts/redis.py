@@ -17,7 +17,7 @@ class RedisContext:
     self.settings = settings
 
   def start(self):
-    self.redis = Redis(host=self.settings.REDIS_HOST)
+    self.redis = Redis(host=self.settings.REDIS_HOSTNAME)
 
   async def stop(self):
     for task in self.subscriptions:
