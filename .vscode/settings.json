@@ -29,5 +29,6 @@
       "username": "root",
       "password": "password"
     }
-  ]
+  ],
+  "python.formatting.provider": "black"
 }

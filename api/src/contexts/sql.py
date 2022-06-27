@@ -20,7 +20,7 @@ class SqlContext:
     metadata.create_all(engine) 
 
   def start(self):
-    self.database = Database(url=self.settings.DATABASE_URL)
+    self.database = Database(url=self.settings.DATABASE_URL_ASYNC)
     if self.settings.DATABASE_INIT:
       self._init_database()
 
@@ -30,6 +30,10 @@ def start_sql_context(app: FastAPI, settings: Settings):
   app.state.sql = context
   return context
 
-def get_sql_context(request: Request):
+async def get_sql_database(request: Request):
   sql: SqlContext = request.app.state.sql
-  return sql
+  await sql.database.connect()
+  try:
+    yield sql.database
+  finally:
+    await sql.database.disconnect()
