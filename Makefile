@@ -6,7 +6,7 @@ build-client:
 	pio run -d client
 
 # develop
-dev: start-redis dev-api dev-app
+dev: start-redis start-sql dev-api dev-app
 dev-api:
 	uvicorn api.src.main:app --reload
 dev-app:
@@ -21,6 +21,8 @@ start-api:
 	docker compose up -d api
 start-redis:
 	docker compose up -d redis
+start-sql:
+	docker compose up -d sql
 
 #stop
 stop:
@@ -29,6 +31,16 @@ stop-api:
 	docker compose stop api
 stop-redis:
 	docker compose stop redis
+stop-sql:
+	docker compose stop sql
+
+# test
+test-api:
+	pytest
+
+# lint
+lint-api:
+	black api
 
 # watch
 watch:
