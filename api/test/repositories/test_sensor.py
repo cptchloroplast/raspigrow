@@ -2,8 +2,8 @@ from datetime import datetime
 import pytest
 from unittest.mock import AsyncMock
 
-from ...models.sensor import SensorReading
-from .. import sensor
+from src.repositories import sensor
+from src.models.sensor import SensorReading
 
 pytestmark = pytest.mark.anyio
 
