@@ -6,8 +6,6 @@ from ..settings import Settings
 
 metadata = MetaData()
 
-# from ..models.sensor import readings
-
 
 class SqlContext:
     settings: Settings
@@ -17,6 +15,8 @@ class SqlContext:
         self.settings = settings
 
     def _init_database(self):
+        from ..models.sensor import readings
+
         engine = create_engine(self.settings.DATABASE_URL)
         metadata.create_all(engine)
 
