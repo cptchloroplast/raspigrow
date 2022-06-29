@@ -10,20 +10,20 @@ from .services import sensor
 
 def create_app(settings: Settings):
     app = FastAPI(
-      title=settings.OPENAPI_TITLE,
-      description=settings.OPENAPI_DESCRIPTION,
-      version=settings.OPENAPI_VERSION,
-      contact={
-        "name": settings.OPENAPI_CONTACT_NAME,
-        "url": settings.OPENAPI_CONTACT_URL,
-        "email": settings.OPENAPI_CONTACT_EMAIL,
-      },
-      license_info={
-        "name": settings.OPENAPI_LICENSE_NAME,
-        "url": settings.OPENAPI_LICENSE_URL,
-      },
-      docs_url=None,
-      redoc_url="/docs"
+        title=settings.OPENAPI_TITLE,
+        description=settings.OPENAPI_DESCRIPTION,
+        version=settings.OPENAPI_VERSION,
+        contact={
+            "name": settings.OPENAPI_CONTACT_NAME,
+            "url": settings.OPENAPI_CONTACT_URL,
+            "email": settings.OPENAPI_CONTACT_EMAIL,
+        },
+        license_info={
+            "name": settings.OPENAPI_LICENSE_NAME,
+            "url": settings.OPENAPI_LICENSE_URL,
+        },
+        docs_url=None,
+        redoc_url="/docs",
     )
     app.include_router(stream.router)
     app.add_middleware(
