@@ -13,7 +13,7 @@ router = APIRouter()
 
 
 @router.get("/publish")
-async def get(
+async def publish(
     channel: str = "default",
     redis: RedisContext = Depends(get_redis_context),
     db: Database = Depends(get_sql_database),

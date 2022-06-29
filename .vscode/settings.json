@@ -28,6 +28,20 @@
       "database": "grow",
       "username": "root",
       "password": "password"
+    },
+    {
+      "mysqlOptions": {
+        "authProtocol": "default"
+      },
+      "previewLimit": 50,
+      "server": "grow.okkema.org",
+      "port": 3306,
+      "askForPassword": true,
+      "driver": "MariaDB",
+      "name": "grow.okkema.org",
+      "group": "grow",
+      "database": "grow",
+      "username": "root"
     }
   ],
   "python.formatting.provider": "black"

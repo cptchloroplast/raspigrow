@@ -1,0 +1,35 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+    {
+      "label": "Start - SQL",
+      "command": "make",
+      "args": ["start-sql"]
+    },
+    {
+      "label": "Start - Redis",
+      "command": "make",
+      "args": ["start-redis"]
+    },
+    {
+      "label": "Test - API",
+      "command": "make",
+      "args": ["test-api"],
+      "group": "test"
+    },
+    {
+      "label": "Test - API",
+      "command": "make",
+      "args": ["lint-api"],
+      "group": "test"
+    },
+    {
+      "label": "Migrations - Upgrade",
+      "command": ".venv/bin/alembic",
+      "args": ["upgrade", "head"],
+      "options": {
+        "cwd": "${workspaceFolder}/api"
+      }
+    },
+  ]
+}

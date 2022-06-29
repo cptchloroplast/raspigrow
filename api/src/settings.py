@@ -5,10 +5,17 @@ from pydantic import BaseSettings
 
 class Settings(BaseSettings):
     # OpenAPI
-    TITLE = "Grow"
+    OPENAPI_TITLE = "Grow"
+    OPENAPI_DESCRIPTION = "Greenhouse automation software"
+    OPENAPI_VERSION = "development"
+    OPENAPI_CONTACT_NAME = "Okkema Labs"
+    OPENAPI_CONTACT_URL = "https://okkema.org"
+    OPENAPI_CONTACT_EMAIL = "correos@okkema.org"
+    OPENAPI_LICENSE_NAME = "MIT"
+    OPENAPI_LICENSE_URL = "https://github.com/okkema/grow/blob/main/LICENSE"
 
     # Redis
-    REDIS_HOSTNAME: str
+    REDIS_HOSTNAME = "localhost"
 
     # SQL
     DATABASE_USERNAME: str
