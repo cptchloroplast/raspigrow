@@ -31,7 +31,8 @@
       "module": "uvicorn",
       "args": ["src.main:app"],
       "jinja": true,
-      "justMyCode": true
+      "justMyCode": true,
+      "preLaunchTask": "Develop - API"
     },
     {
       "type": "platformio-debug",

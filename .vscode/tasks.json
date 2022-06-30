@@ -2,6 +2,14 @@
 	"version": "2.0.0",
 	"tasks": [
     {
+      "label": "Develop - API",
+      "dependsOn": [
+        "Start - SQL",
+        "Migrations - Upgrade"
+      ],
+      "dependsOrder": "sequence"
+    },
+    {
       "label": "Start - SQL",
       "command": "make",
       "args": ["start-sql"]
