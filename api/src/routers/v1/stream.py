@@ -3,7 +3,7 @@ from json import dumps
 from fastapi import APIRouter, Depends, Request, Response
 from sse_starlette import EventSourceResponse
 
-from ..contexts.redis import RedisContext, get_redis_context
+from ...contexts.redis import RedisContext, get_redis_context
 
 router = APIRouter(prefix="/stream", tags=["stream"])
 

@@ -24,7 +24,7 @@ const useSensors = () => {
   const [chart, setChart] = useState<SensorChart[]>([])
 
   useEffect(() => {
-    const eventSource = new EventSource("/api/stream");
+    const eventSource = new EventSource("/api/v1/stream/");
     eventSource.addEventListener("message", (event) => {
       const raw: SensorData = JSON.parse(event.data)
       setCurrent(raw)
