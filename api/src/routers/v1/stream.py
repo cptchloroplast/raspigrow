@@ -1,4 +1,3 @@
-from datetime import datetime
 from json import dumps
 from fastapi import APIRouter, Depends, Request, Response
 from sse_starlette import EventSourceResponse
@@ -20,9 +19,6 @@ async def stream(
     async def get_event():
         subscription = context.subscribe("default", cancelled=request.is_disconnected)
         async for message in subscription:
-            yield dumps(
-                {"timestamp": datetime.now(), "event": "message", "data": message},
-                default=str,
-            )
+            yield dumps(message, default=str)
 
     return EventSourceResponse(get_event())

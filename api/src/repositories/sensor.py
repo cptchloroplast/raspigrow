@@ -9,6 +9,9 @@ async def create(db: Database, reading: SensorReading):
         temperature=reading.temperature,
         humidity=reading.humidity,
     )
-    id = await db.execute(query)
+    try:
+        id = await db.execute(query)
+    except Exception as ex:
+        print(ex)
     reading.id = id
     return reading

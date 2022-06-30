@@ -8,7 +8,7 @@ function App() {
   return (
     <div>
       <pre>{raw}</pre>
-      {chart.length && <LineChart width={400} height={300} data={chart} />}
+      {!!chart.length && <LineChart width={400} height={300} data={chart} />}
     </div>
   )
 }

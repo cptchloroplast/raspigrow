@@ -2,15 +2,11 @@ import { useEffect, useState } from "react"
 
 type SensorData = {
   timestamp: Date
+  channel: string
   event: "message"
   data: {
-    type: "message"
-    pattern?: string
-    channel: string
-    data: {
-      temperature: number
-      humidity: number
-    }
+    temperature: number
+    humidity: number
   }
 }
 
@@ -30,7 +26,7 @@ const useSensors = () => {
       setCurrent(raw)
       setChart(chart => [...chart, {
         x: new Date(raw.timestamp),
-        y: raw.data.data.temperature,
+        y: raw.data.temperature,
       }])
     });
   })

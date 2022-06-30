@@ -10,7 +10,7 @@ def log_reading(sql: SqlContext, redis: RedisContext):
 
     async def log(message):
         reading = SensorReading(
-            timestamp=datetime.utcnow(),
+            timestamp=message["timestamp"],
             temperature=message["data"]["temperature"],
             humidity=message["data"]["humidity"],
         )
