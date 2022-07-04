@@ -1,6 +1,9 @@
+import logging
 from databases import Database
 
 from ..models.sensor import SensorReading, readings
+
+logger = logging.getLogger(__name__)
 
 
 async def create(db: Database, reading: SensorReading):
@@ -12,6 +15,6 @@ async def create(db: Database, reading: SensorReading):
     try:
         id = await db.execute(query)
     except Exception as ex:
-        print(ex)
+        logger.error(ex)
     reading.id = id
     return reading

@@ -1,4 +1,5 @@
-from asyncio import CancelledError, Task, sleep, TimeoutError, create_task
+from asyncio import Task, sleep, TimeoutError, create_task
+from dataclasses import dataclass
 from datetime import datetime
 from json import loads
 from typing import Callable, Dict, List
@@ -6,8 +7,19 @@ from async_timeout import timeout
 from redis.asyncio import Redis
 from fastapi import FastAPI
 from starlette.requests import Request
+import logging
+
 
 from ..settings import Settings
+
+logger = logging.getLogger(__name__)
+
+
+@dataclass
+class RedisMessage:
+    timestamp: datetime
+    channel: str
+    data: dict
 
 
 class RedisContext:
@@ -27,7 +39,7 @@ class RedisContext:
             try:
                 await task
             except Exception as ex:
-                print(ex)  # handle these better...
+                logger.error(ex)  # handle these better...
         await self.redis.close()
 
     async def _create_subscription(self, channel: str, cancelled: Callable = None):
@@ -47,13 +59,13 @@ class RedisContext:
 
     def _process_message(self, message: Dict[str, any]):
         try:
-            return {
-                "timestamp": datetime.utcnow(),
-                "channel": message.get("channel").decode("utf8"),
-                "data": loads(message.get("data").decode("utf8")),
-            }
+            return RedisMessage(
+                timestamp=datetime.utcnow(),
+                channel=message.get("channel").decode("utf8"),
+                data=loads(message.get("data").decode("utf8")),
+            )
         except Exception as ex:
-            print(ex)
+            logger.error(ex)
 
     def subscribe(
         self,

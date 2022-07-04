@@ -1,3 +1,4 @@
+import logging
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -6,6 +7,9 @@ from .contexts.sql import start_sql_context, stop_sql_context
 from .settings import Settings
 from .routers.v1 import router as v1
 from .services import sensor
+
+
+logging.basicConfig(level=logging.INFO)
 
 
 def create_app(settings: Settings):
