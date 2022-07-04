@@ -16,7 +16,7 @@ class SensorReading(BaseModel):
         orm_mode = True
 
 
-readings = Table(
+sensor_readings = Table(
     "sensor_readings",
     metadata,
     Column("id", Integer, primary_key=True),

@@ -32,7 +32,7 @@
       "args": ["src.main:app"],
       "jinja": true,
       "justMyCode": true,
-      "preLaunchTask": "Develop - API"
+      "preLaunchTask": "Develop - API",
     },
     {
       "type": "platformio-debug",

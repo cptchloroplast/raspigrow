@@ -15,7 +15,7 @@ class SqlContext:
         self.settings = settings
 
     def _init_database(self):
-        from ..models.sensor import readings
+        from ..models.sensor import sensor_readings
 
         engine = create_engine(self.settings.DATABASE_URL)
         metadata.create_all(engine)

@@ -14,8 +14,6 @@ dev-app:
 
 # start
 start:
-	docker compose up -d
-start-build:
 	docker compose up -d --build
 start-api:
 	docker compose up -d api

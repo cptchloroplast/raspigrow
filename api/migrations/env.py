@@ -5,7 +5,7 @@ from alembic import context
 
 from src.settings import Settings
 from src.contexts.sql import metadata
-from src.models.sensor import readings
+from src.models.sensor import sensor_readings
 
 config = context.config
 settings = Settings()
