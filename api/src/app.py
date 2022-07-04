@@ -42,7 +42,7 @@ def create_app(settings: Settings):
     async def on_startup():
         sql = await start_sql_context(app, settings)
         redis = start_redis_context(app, settings)
-        start_sensor_context(sql, redis)
+        start_sensor_context(app, sql, redis)
 
     @app.on_event("shutdown")
     async def on_shutdown():

@@ -1,3 +1,6 @@
+from typing import Callable
+
+from fastapi import FastAPI, Request
 from ..models.sensor import SensorReading
 from ..contexts.redis import RedisContext, RedisMessage
 from ..contexts.sql import SqlContext
@@ -8,6 +11,7 @@ logger = logging.getLogger(__name__)
 
 
 class SensorContext:
+    channel = "default"
     sql: SqlContext
     redis: RedisContext
 
@@ -16,7 +20,10 @@ class SensorContext:
         self.redis = redis
 
     def start(self):
-        self.redis.subscribe("default", self._process_redis_message)
+        self.redis.subscribe(self.channel, self._process_redis_message)
+
+    def subscribe(self, handler: Callable = None, canceller: Callable = None):
+        return self.redis.subscribe(self.channel, handler, canceller)
 
     async def _process_redis_message(self, message: RedisMessage):
         reading = SensorReading(
@@ -24,8 +31,8 @@ class SensorContext:
             temperature=message.data.get("temperature"),
             humidity=message.data.get("humidity"),
         )
-        created = await self._persist_sensor_reading(reading)
-        logger.info(created.json())
+        logger.info(reading.json())
+        await self._persist_sensor_reading(reading)
 
     async def _persist_sensor_reading(self, reading: SensorReading):
         query = sensor_readings.insert().values(
@@ -34,14 +41,18 @@ class SensorContext:
             humidity=reading.humidity,
         )
         try:
-            id = await self.sql.database.execute(query)
+            id: int = await self.sql.database.execute(query)
+            return id
         except Exception as ex:
             logger.error(ex)
-        reading.id = id
-        return reading
 
 
-def start_sensor_context(sql: SqlContext, redis: RedisContext):
+def start_sensor_context(app: FastAPI, sql: SqlContext, redis: RedisContext):
     sensor = SensorContext(sql, redis)
     sensor.start()
+    app.state.sensor = sensor
+    return sensor
+
+def get_sensor_context(request: Request):
+    sensor: SensorContext = request.app.state.sensor
     return sensor

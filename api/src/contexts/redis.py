@@ -1,9 +1,9 @@
 from asyncio import Task, sleep, TimeoutError, create_task
-from dataclasses import dataclass
 from datetime import datetime
 from json import loads
 from typing import Callable, Dict, List
 from async_timeout import timeout
+from pydantic import BaseModel
 from redis.asyncio import Redis
 from fastapi import FastAPI
 from starlette.requests import Request
@@ -15,11 +15,13 @@ from ..settings import Settings
 logger = logging.getLogger(__name__)
 
 
-@dataclass
-class RedisMessage:
+class RedisMessage(BaseModel):
     timestamp: datetime
     channel: str
     data: dict
+
+    class Config:
+        orm_mode = True
 
 
 class RedisContext:
@@ -39,7 +41,7 @@ class RedisContext:
             try:
                 await task
             except Exception as ex:
-                logger.error(ex)  # handle these better...
+                logger.error(ex)  # TODO: handle these better...
         await self.redis.close()
 
     async def _create_subscription(self, channel: str, cancelled: Callable = None):
