@@ -13,6 +13,19 @@ async def stream(
 ):
     """
     Stream sensor data from the API via [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events), published at 2 second intervals.
+
+    The data is JSON formatted with the following structure:
+    ```
+    {
+        "timestamp": date-time,
+        "channel": string,
+        "data": {
+            "temperature": float,
+            "humidity": integer
+        }
+    }
+    ```
+    Note: `timestamp` is in UTC.
     """
 
     async def get_event():
