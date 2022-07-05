@@ -1,5 +1,6 @@
-import * as d3 from "d3";
-import { useEffect, useState } from "react";
+import * as d3 from "d3"
+import { useEffect, useState } from "react"
+import { v4 as uuid } from "uuid"
 
 type LineChartProps = {
   width?: number;
@@ -9,7 +10,7 @@ type LineChartProps = {
 };
 
 const LineChart = ({ width = 400, height = 300, data = [], color = "red" }: LineChartProps) => {
-  const [id] = useState(`container-${crypto.randomUUID()}`)
+  const [id] = useState(`container-${uuid()}`)
 
   const clear = () => {
     d3.select(`#${id}`)
