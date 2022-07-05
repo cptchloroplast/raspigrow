@@ -22,6 +22,6 @@ void loop()
   StaticJsonDocument<DHTSIZE> doc = readDHT();
   String json = "";
   serializeJson(doc, json);
-  publishRedis("default", json.c_str());
+  publishRedis("grow:v1:sensor", json.c_str());
   handleServer();
 } 

@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 
 
 class SensorContext:
-    channel = "default"
+    channel = "grow:v1:sensor"
     sql: SqlContext
     redis: RedisContext
 
