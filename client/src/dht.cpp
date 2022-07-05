@@ -1,6 +1,7 @@
 #include <DHT.h>
 #include <ArduinoJson.h>
 #include <dht.h>
+#include <math.h>
 
 DHT dht(DHTPIN, DHTTYPE);
 StaticJsonDocument<DHTSIZE> doc;
@@ -17,7 +18,7 @@ void initDHT() {
 StaticJsonDocument<DHTSIZE> readDHT() {
   unsigned long current = millis();
   if(current - previous >= interval) {
-    doc["temperature"] = dht.readTemperature();
+    doc["temperature"] = roundf(dht.readTemperature() * 100) / 100.0;
     doc["humidity"] = dht.readHumidity();
     previous = current;
   }
