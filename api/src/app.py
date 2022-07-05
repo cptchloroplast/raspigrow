@@ -6,7 +6,7 @@ from .contexts.sensor import start_sensor_context
 from .contexts.redis import start_redis_context, stop_redis_context
 from .contexts.sql import start_sql_context, stop_sql_context
 from .settings import Settings
-from .routers.v1 import router as v1
+from .routers.v1 import root as v1
 
 
 logging.basicConfig(level=logging.INFO)

@@ -16,7 +16,7 @@ const useSensors = (length = 30) => {
   const [history, setHistory] = useState<SensorReading[]>([])
 
   useEffect(() => {
-    const eventSource = new EventSource("/api/v1/stream/");
+    const eventSource = new EventSource("/api/v1/sensor/stream/");
     eventSource.addEventListener("message", (event) => {
       const reading: SensorReading = JSON.parse(event.data)
       setCurrent(reading)

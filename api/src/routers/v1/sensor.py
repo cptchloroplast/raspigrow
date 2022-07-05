@@ -3,10 +3,10 @@ from sse_starlette import EventSourceResponse
 
 from ...contexts.sensor import SensorContext, get_sensor_context
 
-router = APIRouter(prefix="/stream", tags=["stream"])
+router = APIRouter(prefix="/sensor", tags=["sensor"])
 
 
-@router.get("/", response_class=Response(media_type="text/event-stream"))
+@router.get("/stream", name="Stream Sensor", response_class=Response(media_type="text/event-stream"), tags=["stream"])
 async def stream(
     request: Request,
     sensor: SensorContext = Depends(get_sensor_context),
