@@ -1,15 +1,18 @@
 import * as d3 from "d3";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 type LineChartProps = {
-  width: number;
-  height: number;
+  width?: number;
+  height?: number;
   data: any[];
+  color?: "red" | "blue"
 };
 
-const LineChart = ({ width, height, data }: LineChartProps) => {
+const LineChart = ({ width = 400, height = 300, data = [], color = "red" }: LineChartProps) => {
+  const [id] = useState(`container-${crypto.randomUUID()}`)
+
   const clear = () => {
-    d3.select("#container")
+    d3.select(`#${id}`)
       .selectAll("*")
       .remove()
   }
@@ -40,7 +43,7 @@ const LineChart = ({ width, height, data }: LineChartProps) => {
       .y((d: any) => yScale(d.y))
       .curve(d3.curveLinear)
 
-    const svg = d3.select("#container")
+    const svg = d3.select(`#${id}`)
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
       .append("g")
@@ -58,7 +61,7 @@ const LineChart = ({ width, height, data }: LineChartProps) => {
       .append("path")
       .datum(data)
       .attr("fill", "none")
-      .attr("stroke", "red")
+      .attr("stroke", color)
       .attr("stroke-width", 2)
       .attr("class", "line")
       .attr("d", line);
@@ -72,7 +75,7 @@ const LineChart = ({ width, height, data }: LineChartProps) => {
   }, [data])
 
   return <>
-    <svg id="container" />
+    <svg id={id} />
   </>
 };
 

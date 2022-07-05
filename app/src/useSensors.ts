@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 
-type SensorData = {
+type SensorReading = {
   timestamp: Date
   channel: string
   event: "message"
@@ -10,30 +10,28 @@ type SensorData = {
   }
 }
 
-type SensorChart = {
-  x: Date
-  y: number
-}
 
-const useSensors = () => {
-  const [current, setCurrent] = useState<SensorData>()
-  const [chart, setChart] = useState<SensorChart[]>([])
+const useSensors = (length = 30) => {
+  const [current, setCurrent] = useState<SensorReading>()
+  const [history, setHistory] = useState<SensorReading[]>([])
 
   useEffect(() => {
     const eventSource = new EventSource("/api/v1/stream/");
     eventSource.addEventListener("message", (event) => {
-      const raw: SensorData = JSON.parse(event.data)
-      setCurrent(raw)
-      setChart(chart => [...chart, {
-        x: new Date(raw.timestamp),
-        y: raw.data.temperature,
-      }])
+      const reading: SensorReading = JSON.parse(event.data)
+      setCurrent(reading)
+      setHistory(history => {
+        const temp = [...history, reading]
+        if (temp.length > length) temp.shift()
+        return temp
+      })
     });
-  })
+    return () => eventSource.close()
+  }, [])
 
   return {
     current,
-    chart,
+    history,
   }
 }
 

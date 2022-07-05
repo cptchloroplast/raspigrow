@@ -2,13 +2,15 @@ import LineChart from "./charts/LineChart"
 import useSensors from "./useSensors"
 
 function App() {
-  const { chart, current } = useSensors()
+  const { history, current } = useSensors()
   const raw = JSON.stringify(current, null, "\t")
-  
+  const temperature = history.map(x => ({ x: new Date(x.timestamp), y: x.data.temperature }))
+  const humidity = history.map(x => ({ x: new Date(x.timestamp), y: x.data.humidity }))
   return (
     <div>
       <pre>{raw}</pre>
-      {!!chart.length && <LineChart width={400} height={300} data={chart} />}
+      {!!history.length && <LineChart data={temperature} />}
+      {!!history.length && <LineChart data={humidity} color="blue" />}
     </div>
   )
 }
