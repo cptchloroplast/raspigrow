@@ -1,5 +1,4 @@
 from typing import Callable
-
 from fastapi import FastAPI, Request
 from ..models.sensor import SensorReading
 from ..contexts.redis import RedisContext, RedisMessage
@@ -52,6 +51,7 @@ def start_sensor_context(app: FastAPI, sql: SqlContext, redis: RedisContext):
     sensor.start()
     app.state.sensor = sensor
     return sensor
+
 
 def get_sensor_context(request: Request):
     sensor: SensorContext = request.app.state.sensor

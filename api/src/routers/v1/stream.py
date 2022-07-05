@@ -25,7 +25,7 @@ async def stream(
         }
     }
     ```
-    Note on units: 
+    Note on units:
     - `timestamp` is UTC
     - `temperature` is celcius (C)
     - `humidity` is percent relative humidity (%RH)
