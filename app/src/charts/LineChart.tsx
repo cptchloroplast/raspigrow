@@ -6,7 +6,7 @@ type LineChartProps = {
   width?: number;
   height?: number;
   data: any[];
-  color?: "red" | "blue"
+  color?: "red" | "blue" | "green"
 };
 
 const LineChart = ({ width = 400, height = 300, data = [], color = "red" }: LineChartProps) => {
