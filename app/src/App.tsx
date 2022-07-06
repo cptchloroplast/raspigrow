@@ -1,4 +1,4 @@
-import LineChart from "./charts/LineChart"
+import { StreamingLineChart, LineChart } from "./charts"
 import { useSensorStream, useSensorHistory } from "./sensors"
 
 function App() {
@@ -11,8 +11,8 @@ function App() {
   return (
     <div>
       <pre>{raw}</pre>
-      {!!history.length && <LineChart data={temperature} />}
-      {!!history.length && <LineChart data={humidity} color="blue" />}
+      {!!history.length && <StreamingLineChart data={temperature} />}
+      {!!history.length && <StreamingLineChart data={humidity} color="blue" />}
       {!!data.length && <LineChart data={test} color="green" />}
     </div>
   )

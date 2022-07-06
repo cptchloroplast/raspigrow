@@ -7,9 +7,11 @@ type LineChartProps = {
   height?: number;
   data: any[];
   color?: "red" | "blue" | "green"
+  xDomain?: Date[]
+  yDomain?: number[]
 };
 
-const LineChart = ({ width = 400, height = 300, data = [], color = "red" }: LineChartProps) => {
+const LineChart = ({ width = 400, height = 300, data = [], color = "red", xDomain, yDomain }: LineChartProps) => {
   const [id] = useState(`container-${uuid()}`)
 
   const clear = () => {
@@ -21,23 +23,13 @@ const LineChart = ({ width = 400, height = 300, data = [], color = "red" }: Line
   const render = () => {
     const margin = { top: 50, right: 50, bottom: 50, left: 50 }
 
-    const yMinValue = d3.min(data, (d) => d.y)
-    const yMaxValue = d3.max(data, (d) => d.y)
-    const xMinValue: Date = d3.min(data, (d) => d.x)
-    const xMaxValue: Date = d3.max(data, (d) => d.x)
-    
-    const xDomainMax = new Date(xMinValue.getTime() + 60 * 1000)
-    const xDomainMin = new Date(xMaxValue.getTime() - 60 * 1000)
-    const xDomainStart = xMaxValue < xDomainMax ? xMinValue : xDomainMin
-    const xDomainEnd = xMinValue > xDomainMin ? xDomainMax : xMaxValue
-
     const xScale = d3.scaleTime()
       .range([0, width])
-      .domain([xDomainStart, xDomainEnd])
+      .domain(xDomain ?? [d3.min(data, (d) => d.x), d3.max(data, (d) => d.x)])
 
     const yScale = d3.scaleLinear()
       .range([height, 0])
-      .domain([yMinValue - 5, yMaxValue + 5])
+      .domain(yDomain ?? [d3.min(data, (d) => d.y), d3.max(data, (d) => d.y)])
 
     const line = d3.line()
       .x((d: any) => xScale(d.x))
