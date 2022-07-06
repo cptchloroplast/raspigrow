@@ -1,12 +1,19 @@
+from datetime import datetime, timedelta
+from typing import List
 from fastapi import APIRouter, Depends, Request, Response
 from sse_starlette import EventSourceResponse
 
+from ...models.sensor import SensorReading
 from ...contexts.sensor import SensorContext, get_sensor_context
 
 router = APIRouter(prefix="/sensor", tags=["sensor"])
 
 
-@router.get("/stream", name="Stream Sensor", response_class=Response(media_type="text/event-stream"), tags=["stream"])
+@router.get(
+    "/stream",
+    name="Stream Sensor",
+    response_class=Response(media_type="text/event-stream"),
+)
 async def stream(
     request: Request,
     sensor: SensorContext = Depends(get_sensor_context),
@@ -36,3 +43,13 @@ async def stream(
             yield message.json()
 
     return EventSourceResponse(get_event())
+
+
+@router.get("/history", name="Read Sensor History", response_model=List[SensorReading])
+async def history(
+    start: datetime = datetime.utcnow() - timedelta(days=1),
+    end: datetime = datetime.utcnow(),
+    sensor: SensorContext = Depends(get_sensor_context),
+):
+    history = await sensor.get_history(start, end)
+    return history
