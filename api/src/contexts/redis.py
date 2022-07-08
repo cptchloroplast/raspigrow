@@ -1,5 +1,5 @@
 from asyncio import Task, sleep, TimeoutError, create_task
-from datetime import datetime
+from datetime import datetime, timezone
 from json import loads
 from typing import Callable, Dict, List
 from async_timeout import timeout
@@ -33,7 +33,7 @@ class RedisContext:
         self.settings = settings
 
     def start(self):
-        self.redis = Redis(host=self.settings.REDIS_HOSTNAME)
+        self.redis = Redis(host=self.settings.REDIS_HOSTNAME, decode_responses=True)
 
     async def stop(self):
         for task in self.subscriptions:
@@ -62,9 +62,9 @@ class RedisContext:
     def _process_message(self, message: Dict[str, any]):
         try:
             return RedisMessage(
-                timestamp=datetime.utcnow(),
-                channel=message.get("channel").decode("utf8"),
-                data=loads(message.get("data").decode("utf8")),
+                timestamp=datetime.now(timezone.utc),
+                channel=message.get("channel"),
+                data=loads(message.get("data")),
             )
         except Exception as ex:
             logger.error(ex)
