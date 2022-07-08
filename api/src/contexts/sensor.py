@@ -1,7 +1,7 @@
 from datetime import datetime
 from typing import Callable
 from fastapi import FastAPI, Request
-from sqlalchemy import and_
+from sqlalchemy import and_, select
 from sqlalchemy.sql import func
 from ..models.sensor import SensorReading
 from ..contexts.redis import RedisContext, RedisMessage
@@ -29,14 +29,30 @@ class SensorContext:
         return self.redis.subscribe(self.channel, handler, canceller)
 
     async def get_history(self, start: datetime, end: datetime):
-        query = sensor_readings.select().where(
-            and_(sensor_readings.c.timestamp > start, sensor_readings.c.timestamp < end)
-        ).group_by(func.HOUR(sensor_readings.c.timestamp), func.MINUTE(sensor_readings.c.timestamp))
+        query = (
+            select(
+                sensor_readings.c.timestamp,
+                func.ROUND(func.AVG(sensor_readings.c.temperature), 1).label(
+                    "temperature"
+                ),
+                func.AVG(sensor_readings.c.humidity).label("humidity"),
+            )
+            .where(
+                and_(
+                    sensor_readings.c.timestamp > start,
+                    sensor_readings.c.timestamp < end,
+                )
+            )
+            .group_by(
+                func.HOUR(sensor_readings.c.timestamp),
+                func.MINUTE(sensor_readings.c.timestamp),
+            )
+        )
         result = await self.sql.database.fetch_all(query)
         return result
 
-    async def _canceller(self): 
-      return self.cancelled
+    async def _canceller(self):
+        return self.cancelled
 
     async def _process_redis_message(self, message: RedisMessage):
         reading = SensorReading(
