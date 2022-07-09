@@ -6,7 +6,7 @@ from sqlalchemy.sql import func
 from ..models.sensor import SensorReading
 from ..contexts.redis import RedisContext, RedisMessage
 from ..contexts.sql import SqlContext
-from ..models.sensor import sensor_readings
+from ..database import sensor_readings
 import logging
 
 logger = logging.getLogger(__name__)
