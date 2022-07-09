@@ -27,7 +27,7 @@
       "name": "Api",
       "type": "python",
       "request": "launch",
-      "cwd": "${workspaceFolder}/api",
+      "cwd": "${workspaceFolder}/server",
       "module": "uvicorn",
       "args": ["src.main:app"],
       "jinja": true,

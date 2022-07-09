@@ -36,7 +36,7 @@
       "command": ".venv/bin/alembic",
       "args": ["upgrade", "head"],
       "options": {
-        "cwd": "${workspaceFolder}/api"
+        "cwd": "${workspaceFolder}/server"
       }
     },
   ]
