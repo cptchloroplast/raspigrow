@@ -1,6 +1,7 @@
 import logging
-from .api.factory import create_app
-from .settings import Settings
+
+from src.api.factory import create_app
+from src.settings import Settings
 
 
 logging.basicConfig(level=logging.INFO)

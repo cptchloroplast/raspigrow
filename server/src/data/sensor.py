@@ -3,7 +3,7 @@ from operator import and_
 from databases import Database
 from sqlalchemy import func, select
 
-from ..database import sensor_readings
+from src.database import sensor_readings
 
 
 class SensorData:

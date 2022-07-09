@@ -23,6 +23,7 @@ class RedisMessage(BaseModel):
             data=loads(raw.get("data")),
         )
 
+
 async def create_subscription(redis: Redis, channel: str, canceller: Awaitable = None):
     pubsub = redis.pubsub()
     await pubsub.subscribe(channel)
@@ -31,9 +32,7 @@ async def create_subscription(redis: Redis, channel: str, canceller: Awaitable =
             if canceller and await canceller():
                 break
             async with timeout(1):
-                raw = await pubsub.get_message(
-                    ignore_subscribe_messages=True
-                )
+                raw = await pubsub.get_message(ignore_subscribe_messages=True)
                 if raw:
                     yield RedisMessage.from_raw(raw)
                     await sleep(0.01)

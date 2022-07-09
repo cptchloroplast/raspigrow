@@ -1,10 +1,10 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from .contexts.stream import StreamContext
-from .contexts.data import DataContext
-from ..settings import Settings
-from .routes.v1 import sensor
+from src.api.contexts.stream import StreamContext
+from src.api.contexts.data import DataContext
+from src.settings import Settings
+from src.api.routes.v1 import sensor
 
 
 def create_app(settings: Settings):

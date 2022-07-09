@@ -1,8 +1,8 @@
 from databases import Database
 from fastapi import FastAPI, Request
 
-from ...data.sensor import SensorData
-from ...settings import Settings
+from src.data.sensor import SensorData
+from src.settings import Settings
 
 
 class DataContext:

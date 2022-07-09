@@ -40,7 +40,7 @@ async def stream(
     - `temperature` is celcius (C)
     - `humidity` is percent relative humidity (%RH)
     """
-    
+
     return EventSourceResponse(stream.subscribe(request.is_disconnected))
 
 
