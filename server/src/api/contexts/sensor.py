@@ -3,10 +3,10 @@ from typing import Callable
 from fastapi import FastAPI, Request
 from sqlalchemy import and_, select
 from sqlalchemy.sql import func
-from ..models.sensor import SensorReading
+from ...models.sensor import SensorReading
 from ..contexts.redis import RedisContext, RedisMessage
 from ..contexts.sql import SqlContext
-from ..database import sensor_readings
+from ...database import sensor_readings
 import logging
 
 logger = logging.getLogger(__name__)

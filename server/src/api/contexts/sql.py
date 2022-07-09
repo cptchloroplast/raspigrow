@@ -1,7 +1,7 @@
 from databases import Database
 from fastapi import FastAPI, Request
 
-from ..settings import Settings
+from ...settings import Settings
 
 
 class SqlContext:

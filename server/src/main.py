@@ -1,5 +1,5 @@
 import logging
-from .app import create_app
+from .api.factory import create_app
 from .settings import Settings
 
 

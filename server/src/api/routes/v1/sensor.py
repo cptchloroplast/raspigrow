@@ -3,10 +3,10 @@ from typing import List
 from fastapi import APIRouter, Depends, Request, Response
 from sse_starlette import EventSourceResponse
 
-from ...models.sensor import SensorReading
+from ....models.sensor import SensorReading
 from ...contexts.sensor import SensorContext, get_sensor_context
 
-router = APIRouter(prefix="/sensor", tags=["sensor"])
+router = APIRouter(prefix="/v1/sensor", tags=["v1", "sensor"])
 
 
 @router.get(

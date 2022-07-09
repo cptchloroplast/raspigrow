@@ -3,25 +3,17 @@ from datetime import datetime, timezone
 from json import loads
 from typing import Callable, Dict, List
 from async_timeout import timeout
-from pydantic import BaseModel
 from redis.asyncio import Redis
 from fastapi import FastAPI
 from starlette.requests import Request
 import logging
 
+from ...redis import RedisMessage
 
-from ..settings import Settings
+
+from ...settings import Settings
 
 logger = logging.getLogger(__name__)
-
-
-class RedisMessage(BaseModel):
-    timestamp: datetime
-    channel: str
-    data: dict
-
-    class Config:
-        orm_mode = True
 
 
 class RedisContext:

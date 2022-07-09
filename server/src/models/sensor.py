@@ -2,7 +2,7 @@ from datetime import datetime
 from typing import Optional
 from pydantic import BaseModel
 
-from ..contexts.redis import RedisMessage
+from ..redis import RedisMessage
 
 
 class SensorReading(BaseModel):

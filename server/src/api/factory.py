@@ -4,8 +4,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from .contexts.sensor import start_sensor_context
 from .contexts.redis import start_redis_context, stop_redis_context
 from .contexts.sql import start_sql_context, stop_sql_context
-from .settings import Settings
-from .routers.v1 import root as v1
+from ..settings import Settings
+from .routes.v1 import sensor
 
 
 def create_app(settings: Settings):
@@ -25,7 +25,7 @@ def create_app(settings: Settings):
         docs_url=None,
         redoc_url="/docs",
     )
-    app.include_router(v1.router)
+    app.include_router(sensor.router)
     app.add_middleware(
         CORSMiddleware,
         allow_origins=["*"],
