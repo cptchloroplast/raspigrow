@@ -55,11 +55,7 @@ class SensorContext:
         return self.cancelled
 
     async def _process_redis_message(self, message: RedisMessage):
-        reading = SensorReading(
-            timestamp=message.timestamp,
-            temperature=message.data.get("temperature"),
-            humidity=message.data.get("humidity"),
-        )
+        reading = SensorReading.from_message(message)
         logger.info(reading.json())
         await self._persist_sensor_reading(reading)
 

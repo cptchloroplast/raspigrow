@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from typing import List
 from fastapi import APIRouter, Depends, Request, Response
 from sse_starlette import EventSourceResponse
@@ -47,8 +47,8 @@ async def stream(
 
 @router.get("/history", name="Read Sensor History", response_model=List[SensorReading])
 async def history(
-    start: datetime = datetime.utcnow() - timedelta(days=1),
-    end: datetime = datetime.utcnow(),
+    start: datetime = datetime.now(timezone.utc) - timedelta(days=1),
+    end: datetime = datetime.now(timezone.utc),
     sensor: SensorContext = Depends(get_sensor_context),
 ):
     history = await sensor.get_history(start, end)
