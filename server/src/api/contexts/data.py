@@ -18,23 +18,23 @@ class DataContext:
         self.sensor = SensorData(self.database)
 
     async def start(self):
-      await self.database.connect()
+        await self.database.connect()
 
     async def stop(self):
         await self.database.disconnect()
 
     @classmethod
     async def initialize(cls, app: FastAPI, settings: Settings):
-      ctx = cls(settings)
-      await ctx.start()
-      app.state.data = ctx
-      return ctx
+        ctx = cls(settings)
+        await ctx.start()
+        app.state.data = ctx
+        return ctx
 
     @staticmethod
     async def dispose(app: FastAPI):
-      ctx: DataContext = app.state.data
-      await ctx.stop()
+        ctx: DataContext = app.state.data
+        await ctx.stop()
 
     @staticmethod
     def depends(request: Request):
-      return request.app.state.data
+        return request.app.state.data

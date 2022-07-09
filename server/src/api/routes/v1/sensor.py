@@ -50,7 +50,9 @@ async def stream(
                 if await request.is_disconnected():
                     break
                 async with timeout(1):
-                    raw = await stream.pubsub.get_message(ignore_subscribe_messages=True)
+                    raw = await stream.pubsub.get_message(
+                        ignore_subscribe_messages=True
+                    )
                     if raw:
                         yield RedisMessage.from_raw(raw).json()
                         await sleep(0.01)

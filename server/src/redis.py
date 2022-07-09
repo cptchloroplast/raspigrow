@@ -14,8 +14,8 @@ class RedisMessage(BaseModel):
 
     @classmethod
     def from_raw(cls, raw: Dict[str, Any]):
-      return cls(
-                timestamp=datetime.now(timezone.utc),
-                channel=raw.get("channel"),
-                data=loads(raw.get("data")),
-            )
+        return cls(
+            timestamp=datetime.now(timezone.utc),
+            channel=raw.get("channel"),
+            data=loads(raw.get("data")),
+        )

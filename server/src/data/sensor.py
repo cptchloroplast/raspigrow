@@ -5,13 +5,14 @@ from sqlalchemy import func, select
 
 from ..database import sensor_readings
 
-class SensorData:
-  db: Database
 
-  def __init__(self, db: Database):
-      self.db = db
-  
-  async def get_history(self, start: datetime, end: datetime):
+class SensorData:
+    db: Database
+
+    def __init__(self, db: Database):
+        self.db = db
+
+    async def get_history(self, start: datetime, end: datetime):
         query = (
             select(
                 sensor_readings.c.timestamp,

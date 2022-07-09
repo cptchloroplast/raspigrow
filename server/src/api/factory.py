@@ -24,7 +24,11 @@ def create_app(settings: Settings):
         docs_url=None,
         redoc_url="/docs",
     )
+
+    # Routes
     app.include_router(sensor.router)
+
+    # Middleware
     app.add_middleware(
         CORSMiddleware,
         allow_origins=["*"],

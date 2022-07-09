@@ -19,22 +19,22 @@ class StreamContext:
         self.pubsub = redis.pubsub()
 
     async def start(self):
-      pass
+        pass
 
     async def stop(self):
-      await self.pubsub.close()
+        await self.pubsub.close()
 
     @classmethod
     async def initialize(cls, app: FastAPI, settings: Settings):
-      ctx = cls(settings)
-      app.state.stream = ctx
-      return ctx
+        ctx = cls(settings)
+        app.state.stream = ctx
+        return ctx
 
     @staticmethod
     async def dispose(app: FastAPI):
-      ctx: StreamContext = app.state.stream
-      await ctx.stop()
+        ctx: StreamContext = app.state.stream
+        await ctx.stop()
 
     @staticmethod
     def depends(request: Request):
-      return request.app.state.stream
+        return request.app.state.stream
