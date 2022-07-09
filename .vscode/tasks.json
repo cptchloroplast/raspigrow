@@ -2,7 +2,7 @@
 	"version": "2.0.0",
 	"tasks": [
     {
-      "label": "Develop - API",
+      "label": "Develop - Server",
       "dependsOn": [
         "Start - SQL",
         "Migrations - Upgrade"

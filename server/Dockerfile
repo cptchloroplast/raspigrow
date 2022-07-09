@@ -12,4 +12,4 @@ COPY --from=build /opt/venv /opt/venv
 ENV PATH="/opt/venv/bin:$PATH"
 WORKDIR /home
 COPY . .
-CMD uvicorn src.main:app --host 0.0.0.0
+CMD uvicorn --factory main:create_api --host 0.0.0.0

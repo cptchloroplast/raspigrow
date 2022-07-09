@@ -4,35 +4,47 @@
 //
 // Documentation: https://docs.platformio.org/page/plus/debugging.html
 // Configuration: https://docs.platformio.org/page/projectconf/section_env_debug.html
-
 {
   "version": "0.2.0",
   "configurations": [
-  {
-    "name": "App",
-    "type": "pwa-node",
-    "request": "launch",
-    "cwd": "${workspaceFolder}/app",
-    "runtimeExecutable": "npm",
-    "runtimeArgs": [
-      "run",
-      "dev"
-    ],
-    "envFile": "${workspaceFolder}/app/.env",
-    "skipFiles": [
-      "<node_internals>/**"
-    ],
-  },
     {
-      "name": "Api",
+      "name": "App",
+      "type": "pwa-node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/app",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "run",
+        "dev"
+      ],
+      "envFile": "${workspaceFolder}/app/.env",
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+    },
+    {
+      "name": "Server - Api",
       "type": "python",
       "request": "launch",
       "cwd": "${workspaceFolder}/server",
       "module": "uvicorn",
-      "args": ["src.main:app"],
-      "jinja": true,
+      "args": [
+        "--factory",
+        "main:create_api"
+      ],
       "justMyCode": true,
-      "preLaunchTask": "Develop - API",
+      "preLaunchTask": "Develop - Server",
+    },
+    {
+      "name": "Server - Worker",
+      "type": "python",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/server",
+      "program": "main.py",
+      "console": "integratedTerminal",
+      "envFile": "${workspaceFolder}/server/.env",
+      "justMyCode": true,
+      "preLaunchTask": "Develop - Server",
     },
     {
       "type": "platformio-debug",

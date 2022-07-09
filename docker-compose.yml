@@ -14,7 +14,20 @@ services:
   api:
     image: grow-api:latest
     container_name: grow-api
-    build: api
+    build: server
+    environment:
+      REDIS_HOSTNAME: redis
+      DATABASE_USERNAME: root
+      DATABASE_PASSWORD: password
+      DATABASE_HOSTNAME: mariadb
+    depends_on:
+      - redis
+      - sql
+  worker:
+    image: grow-api:latest
+    container_name: grow-worker
+    build: server
+    command: python main.py
     environment:
       REDIS_HOSTNAME: redis
       DATABASE_USERNAME: root
