@@ -1,8 +1,5 @@
-from datetime import datetime
 from typing import Callable
 from fastapi import FastAPI, Request
-from sqlalchemy import and_, select
-from sqlalchemy.sql import func
 from ...models.sensor import SensorReading
 from ..contexts.redis import RedisContext, RedisMessage
 from .data import DataContext
@@ -14,12 +11,12 @@ logger = logging.getLogger(__name__)
 
 class SensorContext:
     channel = "grow:v1:sensor"
-    sql: DataContext
+    data: DataContext
     redis: RedisContext
     cancelled = False
 
-    def __init__(self, sql: DataContext, redis: RedisContext):
-        self.sql = sql
+    def __init__(self, data: DataContext, redis: RedisContext):
+        self.data = data
         self.redis = redis
 
     def start(self):
@@ -27,29 +24,6 @@ class SensorContext:
 
     def subscribe(self, handler: Callable = None, canceller: Callable = None):
         return self.redis.subscribe(self.channel, handler, canceller)
-
-    async def get_history(self, start: datetime, end: datetime):
-        query = (
-            select(
-                sensor_readings.c.timestamp,
-                func.ROUND(func.AVG(sensor_readings.c.temperature), 1).label(
-                    "temperature"
-                ),
-                func.AVG(sensor_readings.c.humidity).label("humidity"),
-            )
-            .where(
-                and_(
-                    sensor_readings.c.timestamp > start,
-                    sensor_readings.c.timestamp < end,
-                )
-            )
-            .group_by(
-                func.HOUR(sensor_readings.c.timestamp),
-                func.MINUTE(sensor_readings.c.timestamp),
-            )
-        )
-        result = await self.sql.database.fetch_all(query)
-        return result
 
     async def _canceller(self):
         return self.cancelled
@@ -62,15 +36,15 @@ class SensorContext:
     async def _persist_sensor_reading(self, reading: SensorReading):
         query = sensor_readings.insert()
         try:
-            id: int = await self.sql.database.execute(query, reading.dict())
+            id: int = await self.data.database.execute(query, reading.dict())
             return id
         except Exception as ex:
             logger.error(ex)
             self.cancelled = True
 
 
-def start_sensor_context(app: FastAPI, sql: DataContext, redis: RedisContext):
-    sensor = SensorContext(sql, redis)
+def start_sensor_context(app: FastAPI, data: DataContext, redis: RedisContext):
+    sensor = SensorContext(data, redis)
     sensor.start()
     app.state.sensor = sensor
     return sensor

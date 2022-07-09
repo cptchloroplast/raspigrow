@@ -3,8 +3,10 @@ from typing import List
 from fastapi import APIRouter, Depends, Request, Response
 from sse_starlette import EventSourceResponse
 
+
 from ....models.sensor import SensorReading
 from ...contexts.sensor import SensorContext, get_sensor_context
+from ...contexts.data import DataContext
 
 router = APIRouter(prefix="/v1/sensor", tags=["v1", "sensor"])
 
@@ -49,7 +51,7 @@ async def stream(
 async def history(
     start: datetime = datetime.now(timezone.utc) - timedelta(days=1),
     end: datetime = datetime.now(timezone.utc),
-    sensor: SensorContext = Depends(get_sensor_context),
+    data: DataContext = Depends(DataContext.depends),
 ):
-    history = await sensor.get_history(start, end)
+    history = await data.sensor.get_history(start, end)
     return history

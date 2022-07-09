@@ -1,6 +1,7 @@
 from databases import Database
 from fastapi import FastAPI, Request
 
+from ...data.sensor import SensorData
 from ...settings import Settings
 
 
@@ -8,9 +9,13 @@ class DataContext:
     settings: Settings
     database: Database
 
+    # Data
+    sensor: SensorData
+
     def __init__(self, settings: Settings):
         self.settings = settings
         self.database = Database(url=self.settings.DATABASE_URL_ASYNC)
+        self.sensor = SensorData(self.database)
 
     async def start(self):
       await self.database.connect()
@@ -31,5 +36,5 @@ class DataContext:
       await ctx.stop()
 
     @staticmethod
-    def get(request: Request):
+    def depends(request: Request):
       return request.app.state.data
