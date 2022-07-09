@@ -5,7 +5,7 @@ from sqlalchemy import and_, select
 from sqlalchemy.sql import func
 from ...models.sensor import SensorReading
 from ..contexts.redis import RedisContext, RedisMessage
-from ..contexts.sql import SqlContext
+from .data import DataContext
 from ...database import sensor_readings
 import logging
 
@@ -14,11 +14,11 @@ logger = logging.getLogger(__name__)
 
 class SensorContext:
     channel = "grow:v1:sensor"
-    sql: SqlContext
+    sql: DataContext
     redis: RedisContext
     cancelled = False
 
-    def __init__(self, sql: SqlContext, redis: RedisContext):
+    def __init__(self, sql: DataContext, redis: RedisContext):
         self.sql = sql
         self.redis = redis
 
@@ -69,7 +69,7 @@ class SensorContext:
             self.cancelled = True
 
 
-def start_sensor_context(app: FastAPI, sql: SqlContext, redis: RedisContext):
+def start_sensor_context(app: FastAPI, sql: DataContext, redis: RedisContext):
     sensor = SensorContext(sql, redis)
     sensor.start()
     app.state.sensor = sensor

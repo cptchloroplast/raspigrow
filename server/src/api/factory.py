@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from .contexts.sensor import start_sensor_context
 from .contexts.redis import start_redis_context, stop_redis_context
-from .contexts.sql import start_sql_context, stop_sql_context
+from .contexts.data import DataContext
 from ..settings import Settings
 from .routes.v1 import sensor
 
@@ -36,13 +36,13 @@ def create_app(settings: Settings):
 
     @app.on_event("startup")
     async def on_startup():
-        sql = await start_sql_context(app, settings)
+        data = await DataContext.initialize(app, settings)
         redis = start_redis_context(app, settings)
-        start_sensor_context(app, sql, redis)
+        start_sensor_context(app, data, redis)
 
     @app.on_event("shutdown")
     async def on_shutdown():
-        await stop_sql_context(app)
+        await DataContext.dispose(app)
         await stop_redis_context(app)
 
     return app
