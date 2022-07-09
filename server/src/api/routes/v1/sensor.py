@@ -5,10 +5,9 @@ from async_timeout import timeout
 from fastapi import APIRouter, Depends, Request, Response
 from sse_starlette import EventSourceResponse
 
-from ...contexts.stream import StreamContext
-from ...contexts.data import DataContext
-from ....redis import RedisMessage
-from ....models.sensor import SensorReading
+from src.api.contexts.stream import StreamContext
+from src.api.contexts.data import DataContext
+from src.models.sensor import SensorReading
 
 router = APIRouter(prefix="/v1/sensor", tags=["v1", "sensor"])
 
@@ -41,25 +40,8 @@ async def stream(
     - `temperature` is celcius (C)
     - `humidity` is percent relative humidity (%RH)
     """
-    channel = "grow:v1:sensor"
-
-    async def create_generator():
-        await stream.pubsub.subscribe(channel)
-        while True:
-            try:
-                if await request.is_disconnected():
-                    break
-                async with timeout(1):
-                    raw = await stream.pubsub.get_message(
-                        ignore_subscribe_messages=True
-                    )
-                    if raw:
-                        yield RedisMessage.from_raw(raw).json()
-                        await sleep(0.01)
-            except TimeoutError:
-                pass
-
-    return EventSourceResponse(create_generator())
+    
+    return EventSourceResponse(stream.subscribe(request.is_disconnected))
 
 
 @router.get("/history", name="Read Sensor History", response_model=List[SensorReading])

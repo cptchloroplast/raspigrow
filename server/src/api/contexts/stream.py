@@ -1,32 +1,34 @@
+from typing import Awaitable
 from redis.asyncio import Redis
-from redis.asyncio.client import PubSub
 from fastapi import FastAPI
 from starlette.requests import Request
 import logging
 
-from ...settings import Settings
+from src.redis import create_subscription
+from src.settings import Settings
 
 logger = logging.getLogger(__name__)
 
 
 class StreamContext:
+    channel = "grow:v1:sensor"
     settings: Settings
-    pubsub: PubSub
+    redis: Redis
 
     def __init__(self, settings: Settings):
         self.settings = settings
-        redis = Redis(host=self.settings.REDIS_HOSTNAME, decode_responses=True)
-        self.pubsub = redis.pubsub()
+        self.redis = Redis(host=self.settings.REDIS_HOSTNAME, decode_responses=True)
 
     async def start(self):
         pass
 
     async def stop(self):
-        await self.pubsub.close()
+        pass
 
     @classmethod
     async def initialize(cls, app: FastAPI, settings: Settings):
         ctx = cls(settings)
+        await ctx.start()
         app.state.stream = ctx
         return ctx
 
@@ -38,3 +40,7 @@ class StreamContext:
     @staticmethod
     def depends(request: Request):
         return request.app.state.stream
+
+    async def subscribe(self, canceller: Awaitable = None):
+        async for message in create_subscription(self.redis, self.channel, canceller):
+            yield message.json()
