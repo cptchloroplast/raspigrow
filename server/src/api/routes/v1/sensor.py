@@ -1,12 +1,14 @@
+from asyncio import sleep
 from datetime import datetime, timedelta, timezone
 from typing import List
+from async_timeout import timeout
 from fastapi import APIRouter, Depends, Request, Response
 from sse_starlette import EventSourceResponse
 
-
-from ....models.sensor import SensorReading
-from ...contexts.sensor import SensorContext, get_sensor_context
+from ...contexts.stream import StreamContext
 from ...contexts.data import DataContext
+from ....redis import RedisMessage
+from ....models.sensor import SensorReading
 
 router = APIRouter(prefix="/v1/sensor", tags=["v1", "sensor"])
 
@@ -18,7 +20,7 @@ router = APIRouter(prefix="/v1/sensor", tags=["v1", "sensor"])
 )
 async def stream(
     request: Request,
-    sensor: SensorContext = Depends(get_sensor_context),
+    stream: StreamContext = Depends(StreamContext.depends),
 ):
     """
     Stream sensor data from the API via [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events), published at 2 second intervals.
@@ -39,12 +41,23 @@ async def stream(
     - `temperature` is celcius (C)
     - `humidity` is percent relative humidity (%RH)
     """
+    channel = "grow:v1:sensor"
 
-    async def get_event():
-        async for message in sensor.subscribe(canceller=request.is_disconnected):
-            yield message.json()
+    async def create_generator():
+        await stream.pubsub.subscribe(channel)
+        while True:
+            try:
+                if await request.is_disconnected():
+                    break
+                async with timeout(1):
+                    raw = await stream.pubsub.get_message(ignore_subscribe_messages=True)
+                    if raw:
+                        yield RedisMessage.from_raw(raw).json()
+                        await sleep(0.01)
+            except TimeoutError:
+                pass
 
-    return EventSourceResponse(get_event())
+    return EventSourceResponse(create_generator())
 
 
 @router.get("/history", name="Read Sensor History", response_model=List[SensorReading])
