@@ -8,7 +8,7 @@ from src.redis import RedisMessage
 class SensorReading(BaseModel):
     id: Optional[int]
     timestamp: datetime
-    channel: str
+    channel: Optional[str]
     temperature: float
     humidity: int
 

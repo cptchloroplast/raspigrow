@@ -6,11 +6,13 @@ import logging
 
 from src.redis import create_subscription
 from src.settings import Settings
+from src.api.contexts.base import BaseContext
 
 logger = logging.getLogger(__name__)
 
 
-class StreamContext:
+class StreamContext(BaseContext):
+    key = "stream"
     channel = "grow:v1:sensor"
     redis: Redis
 
@@ -22,22 +24,6 @@ class StreamContext:
 
     async def stop(self):
         pass
-
-    @classmethod
-    async def initialize(cls, app: FastAPI, settings: Settings):
-        ctx = cls(settings)
-        await ctx.start()
-        app.state.stream = ctx
-        return ctx
-
-    @staticmethod
-    async def dispose(app: FastAPI):
-        ctx: StreamContext = app.state.stream
-        await ctx.stop()
-
-    @staticmethod
-    def depends(request: Request):
-        return request.app.state.stream
 
     async def subscribe(self, canceller: Awaitable = None):
         async for message in create_subscription(self.redis, self.channel, canceller):
