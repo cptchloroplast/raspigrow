@@ -1,5 +1,5 @@
 from datetime import datetime, timezone
-from sqlalchemy import Column, Float, Integer, MetaData, Table
+from sqlalchemy import Column, Float, Integer, MetaData, String, Table
 from sqlalchemy.types import TypeDecorator, DateTime
 
 
@@ -21,6 +21,7 @@ sensor_readings = Table(
     metadata,
     Column("id", Integer, primary_key=True),
     Column("timestamp", Timestamp, nullable=False),
+    Column("channel", String(32), nullable=False),
     Column("temperature", Float, nullable=False),
     Column("humidity", Integer, nullable=False),
 )
