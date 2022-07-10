@@ -44,5 +44,10 @@
       "username": "root"
     }
   ],
-  "python.formatting.provider": "black"
+  "python.formatting.provider": "black",
+  "python.testing.pytestArgs": [
+    "server"
+  ],
+  "python.testing.unittestEnabled": false,
+  "python.testing.pytestEnabled": true
 }
