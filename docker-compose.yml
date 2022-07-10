@@ -12,7 +12,7 @@ services:
     depends_on:
       - api
   api:
-    image: grow-api:latest
+    image: grow-server:latest
     container_name: grow-api
     build: server
     environment:
@@ -24,7 +24,7 @@ services:
       - redis
       - sql
   worker:
-    image: grow-api:latest
+    image: grow-server:latest
     container_name: grow-worker
     build: server
     command: python main.py
