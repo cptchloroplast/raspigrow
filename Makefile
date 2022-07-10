@@ -15,6 +15,8 @@ server.build:
 	docker build -t grow-server:latest server
 server.lint:
 	black server
+server.lint.check:
+	black --check server
 server.test:
 	pytest server
 ## API
@@ -53,4 +55,4 @@ redis.stop:
 	docker compose stop redis
 
 # Git Hooks
-pre-commit: server.lint server.test
+pre-commit: server.lint.check server.test
