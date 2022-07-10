@@ -12,12 +12,10 @@ logger = logging.getLogger(__name__)
 
 class StreamContext:
     channel = "grow:v1:sensor"
-    settings: Settings
     redis: Redis
 
     def __init__(self, settings: Settings):
-        self.settings = settings
-        self.redis = Redis(host=self.settings.REDIS_HOSTNAME, decode_responses=True)
+        self.redis = Redis(host=settings.REDIS_HOSTNAME, decode_responses=True)
 
     async def start(self):
         pass

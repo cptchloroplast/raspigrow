@@ -6,15 +6,13 @@ from src.settings import Settings
 
 
 class DataContext:
-    settings: Settings
     database: Database
 
     # Data
     sensor: SensorData
 
     def __init__(self, settings: Settings):
-        self.settings = settings
-        self.database = Database(url=self.settings.DATABASE_URL_ASYNC)
+        self.database = Database(url=settings.DATABASE_URL_ASYNC)
         self.sensor = SensorData(self.database)
 
     async def start(self):

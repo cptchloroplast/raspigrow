@@ -13,7 +13,7 @@ class Worker:
     sensor: SensorData
 
     def __init__(self, settings: Settings):
-        self.redis = Redis(host=settings.REDIS_HOSTNAME)
+        self.redis = Redis(host=settings.REDIS_HOSTNAME, decode_responses=True)
         self.database = Database(settings.DATABASE_URL_ASYNC)
         self.sensor = SensorData(self.database)
 
