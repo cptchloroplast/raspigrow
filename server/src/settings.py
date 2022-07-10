@@ -1,4 +1,4 @@
-import os
+from os.path import abspath, dirname, join
 from pydantic import BaseSettings
 
 
@@ -35,5 +35,5 @@ class Settings(BaseSettings):
         return f"mysql+{driver}://{self.DATABASE_USERNAME}:{self.DATABASE_PASSWORD}@{self.DATABASE_HOSTNAME}/{self.DATABASE_DATABASE}"
 
     class Config:
-        env_file = os.path.abspath(".env")
+        env_file = join(dirname(abspath(__file__)), "../.env")
         env_file_encoding = "utf-8"

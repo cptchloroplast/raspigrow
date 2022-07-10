@@ -4,6 +4,7 @@ from databases import Database
 from sqlalchemy import func, select
 
 from src.database import sensor_readings
+from src.models.sensor import SensorReading
 
 
 class SensorData:
@@ -19,7 +20,7 @@ class SensorData:
                 func.ROUND(func.AVG(sensor_readings.c.temperature), 1).label(
                     "temperature"
                 ),
-                func.AVG(sensor_readings.c.humidity).label("humidity"),
+                func.ROUND(func.AVG(sensor_readings.c.humidity), 1).label("humidity"),
             )
             .where(
                 and_(
@@ -33,4 +34,9 @@ class SensorData:
             )
         )
         result = await self.db.fetch_all(query)
+        return result
+
+    async def persist_reading(self, reading: SensorReading):
+        query = sensor_readings.insert().values(**reading.dict())
+        result = await self.db.execute(query)
         return result
