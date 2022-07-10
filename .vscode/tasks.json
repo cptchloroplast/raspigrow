@@ -2,37 +2,26 @@
 	"version": "2.0.0",
 	"tasks": [
     {
-      "label": "Develop - Server",
+      "label": "Server:Develop",
       "dependsOn": [
-        "Start - SQL",
-        "Migrations - Upgrade"
+        "Redis:Start",
+        "SQL:Start",
+        "SQL:Migrations:Upgrade"
       ],
       "dependsOrder": "sequence"
     },
     {
-      "label": "Start - SQL",
+      "label": "SQL:Start",
       "command": "make",
-      "args": ["start-sql"]
+      "args": ["sql.start"]
     },
     {
-      "label": "Start - Redis",
+      "label": "Redis:Start",
       "command": "make",
-      "args": ["start-redis"]
+      "args": ["redis.start"]
     },
     {
-      "label": "Test - API",
-      "command": "make",
-      "args": ["test-api"],
-      "group": "test"
-    },
-    {
-      "label": "Test - API",
-      "command": "make",
-      "args": ["lint-api"],
-      "group": "test"
-    },
-    {
-      "label": "Migrations - Upgrade",
+      "label": "SQL:Migrations:Upgrade",
       "command": ".venv/bin/alembic",
       "args": ["upgrade", "head"],
       "options": {

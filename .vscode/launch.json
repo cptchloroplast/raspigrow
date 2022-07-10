@@ -33,7 +33,7 @@
         "main:create_api"
       ],
       "justMyCode": true,
-      "preLaunchTask": "Develop - Server",
+      "preLaunchTask": "Server:Develop",
     },
     {
       "name": "Server - Worker",
@@ -44,7 +44,7 @@
       "console": "integratedTerminal",
       "envFile": "${workspaceFolder}/server/.env",
       "justMyCode": true,
-      "preLaunchTask": "Develop - Server",
+      "preLaunchTask": "Server:Develop",
     },
     {
       "type": "platformio-debug",
