@@ -16,4 +16,4 @@ def create_api():
 
 if __name__ == "__main__":
     worker = Worker(settings)
-    run(worker.start("grow:v1:sensor"))
+    run(worker.start("grow:*"))

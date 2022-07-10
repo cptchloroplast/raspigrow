@@ -26,7 +26,7 @@ class RedisMessage(BaseModel):
 
 async def create_subscription(redis: Redis, channel: str, canceller: Awaitable = None):
     pubsub = redis.pubsub()
-    await pubsub.subscribe(channel)
+    await pubsub.psubscribe(channel)
     while True:
         try:
             if canceller and await canceller():
