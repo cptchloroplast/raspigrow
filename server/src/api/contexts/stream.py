@@ -1,7 +1,5 @@
 from typing import Awaitable
 from redis.asyncio import Redis
-from fastapi import FastAPI
-from starlette.requests import Request
 import logging
 
 from src.redis import create_subscription

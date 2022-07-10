@@ -1,5 +1,4 @@
 from databases import Database
-from fastapi import FastAPI, Request
 
 from src.api.contexts.base import BaseContext
 from src.data.sensor import SensorData
