@@ -48,6 +48,7 @@ def create_reading(
 ):
     return SensorReading(
         timestamp=timestamp,
+        channel="grow:test:v1",
         temperature=temperature,
         humidity=humidity,
     )

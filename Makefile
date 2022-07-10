@@ -1,44 +1,41 @@
 # build
 build: build-app
-build-app:
+build.app:
 	npm --prefix app run build
-build-client:
+build.client:
 	pio run -d client
-
-# develop
-dev: start-redis start-sql dev-api dev-app
-dev-api:
-	uvicorn api.src.main:app --reload
-dev-app:
-	npm --prefix app run dev
 
 # start
 start:
 	docker compose up -d --build
-start-api:
-	docker compose up -d api
-start-redis:
+start.api:
+	docker compose up -d api --build
+start.worker:
+	docker compose up -d worker --build
+start.redis:
 	docker compose up -d redis
-start-sql:
+start.sql:
 	docker compose up -d sql
 
 #stop
 stop:
 	docker compose down
-stop-api:
+stop.api:
 	docker compose stop api
-stop-redis:
+stop.worker:
+	docker compose stop worker
+stop.redis:
 	docker compose stop redis
-stop-sql:
+stop.sql:
 	docker compose stop sql
 
 # test
-test-api:
+test.server:
 	pytest
 
 # lint
-lint-api:
-	black api
+lint.server:
+	black server
 
 # watch
 watch:
