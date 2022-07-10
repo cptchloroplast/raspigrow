@@ -1,0 +1,5 @@
+#!/bin/sh
+
+source server/.venv/bin/activate
+make lint.server
+make test.server
