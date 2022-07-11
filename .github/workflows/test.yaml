@@ -12,12 +12,12 @@ jobs:
       DATABASE_PASSWORD: password
     services:
       mariadb:
-       image: mariadb:10.8.3
-       env:
-        MARIADB_DATABASE: grow
-        MARIADB_ROOT_PASSWORD: password
-      ports:
-        - 3306:3306
+        image: mariadb:10.8.3
+        env:
+          MARIADB_DATABASE: grow
+          MARIADB_ROOT_PASSWORD: password
+        ports:
+          - 3306:3306
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v4
