@@ -1,7 +1,6 @@
 name: test
 on:
   push:
-    branches: [test]
   workflow_dispatch:
 jobs:
   server:
