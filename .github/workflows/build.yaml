@@ -1,6 +1,8 @@
 name: build
 on:
-  push: 
+  workflow_run:
+    workflows: [test]
+    types: [completed]
   workflow_dispatch:
 env:
   REGISTRY: ghcr.io
