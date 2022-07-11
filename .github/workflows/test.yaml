@@ -1,0 +1,34 @@
+name: test
+on:
+  push:
+  workflow_dispatch:
+jobs:
+  server:
+    runs-on: ubuntu-latest
+    env:
+      DATABASE_HOSTNAME: localhost
+      DATABASE_USERNAME: root
+      DATABASE_PASSWORD: password
+    services:
+      mariadb:
+        image: mariadb:10.8.3
+        env:
+          MARIADB_DATABASE: grow
+          MARIADB_ROOT_PASSWORD: password
+        ports:
+          - 3306:3306
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v2
+      - name: Setup python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+          cache: 'pip'
+      - name: Install dependencies with pip
+        run: pip install -r server/requirements.txt
+      - name: Run database migrations
+        working-directory: server
+        run: alembic upgrade head
+      - name: Test server with pytest
+        run: make server.test
