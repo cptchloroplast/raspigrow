@@ -2,6 +2,7 @@ name: deploy
 on:
   workflow_run:
     workflows: [test]
+    branches: [test]
     types: [completed]
 jobs:
   raspberry_pi:
