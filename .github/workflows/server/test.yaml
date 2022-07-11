@@ -1,0 +1,16 @@
+name: Server - Test
+on:
+  push:
+    branches: [ test ]
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Start SQL
+        run: make sql.start
+      - name: Test server with pytest
+        run: make server.test
+      - name: Stop SQL
+        run: make sql.stop
