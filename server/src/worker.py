@@ -3,7 +3,8 @@ from databases import Database
 from redis.asyncio import Redis
 
 from src.models.sensor import SensorReading
-from src.redis import create_subscription
+from src.redis import create_subscription, RedisFactory
+from src.database import DatabaseFactory
 from src.settings import Settings
 from src.data.sensor import SensorData
 
@@ -16,8 +17,8 @@ class Worker:
     sensor: SensorData
 
     def __init__(self, settings: Settings):
-        self.redis = Redis(host=settings.REDIS_HOSTNAME, decode_responses=True)
-        self.database = Database(settings.DATABASE_URL_ASYNC)
+        self.redis = RedisFactory.create(settings)
+        self.database = DatabaseFactory.create(settings)
         self.sensor = SensorData(self.database)
 
     async def start(self, channel: str):

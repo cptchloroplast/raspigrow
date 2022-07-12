@@ -6,6 +6,8 @@ from async_timeout import timeout
 from pydantic import BaseModel
 from redis.asyncio import Redis
 
+from src.settings import Settings
+
 
 class RedisMessage(BaseModel):
     timestamp: datetime
@@ -22,6 +24,12 @@ class RedisMessage(BaseModel):
             channel=raw.get("channel"),
             data=loads(raw.get("data")),
         )
+
+
+class RedisFactory:
+    @staticmethod
+    def create(settings: Settings):
+        return Redis(settings.REDIS_HOSTNAME, decode_responses=True)
 
 
 async def create_subscription(redis: Redis, channel: str, canceller: Awaitable = None):

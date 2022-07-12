@@ -1,5 +1,6 @@
 from databases import Database
 
+from src.database import DatabaseFactory
 from src.api.contexts.base import BaseContext
 from src.data.sensor import SensorData
 from src.settings import Settings
@@ -13,7 +14,7 @@ class DataContext(BaseContext):
     sensor: SensorData
 
     def __init__(self, settings: Settings):
-        self.database = Database(url=settings.DATABASE_URL_ASYNC)
+        self.database = DatabaseFactory.create(settings)
         self.sensor = SensorData(self.database)
 
     async def start(self):

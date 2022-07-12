@@ -2,7 +2,7 @@ from typing import Awaitable
 from redis.asyncio import Redis
 import logging
 
-from src.redis import create_subscription
+from src.redis import create_subscription, RedisFactory
 from src.settings import Settings
 from src.api.contexts.base import BaseContext
 
@@ -15,7 +15,7 @@ class StreamContext(BaseContext):
     redis: Redis
 
     def __init__(self, settings: Settings):
-        self.redis = Redis(host=settings.REDIS_HOSTNAME, decode_responses=True)
+        self.redis = RedisFactory.create(settings)
 
     async def start(self):
         pass

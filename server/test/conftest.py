@@ -1,10 +1,12 @@
 from datetime import datetime, timedelta, timezone
-from databases import Database
+from unittest.mock import MagicMock, patch
 import pytest
 from random import randint
 
+from src.database import DatabaseFactory
 from src.settings import Settings
 from src.models.sensor import SensorReading
+from src.redis import RedisFactory
 
 
 pytest.mark.usefixtures("anyio_backend")
@@ -22,10 +24,33 @@ def settings():
 
 @pytest.fixture
 async def database(settings: Settings, anyio_backend):
-    db = Database(settings.DATABASE_URL_ASYNC)
+    db = DatabaseFactory.create(settings)
     await db.connect()
     yield db
     await db.disconnect()
+
+
+@pytest.fixture
+def mock_database():
+    with patch("src.database.DatabaseFactory") as mock_factory:
+        mock_database = MagicMock()
+        mock_factory.create.return_value = mock_database
+        yield mock_database
+        mock_factory.create.assert_called_once()
+
+
+@pytest.fixture
+def redis(settings: Settings):
+    return RedisFactory.create(settings)
+
+
+@pytest.fixture
+def mock_redis():
+    with patch("src.redis.RedisFactory") as mock_factory:
+        mock_redis = MagicMock()
+        mock_factory.create.return_value = mock_redis
+        yield mock_redis
+        mock_factory.create.assert_called_once()
 
 
 @pytest.fixture
