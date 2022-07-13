@@ -8,25 +8,33 @@
         "SQL:Start",
         "SQL:Migrations:Upgrade"
       ],
-      "dependsOrder": "sequence"
+      "dependsOrder": "sequence",
+      "problemMatcher": []
     },
     {
       "label": "SQL:Start",
       "command": "make",
-      "args": ["sql.start"]
+      "args": [
+        "sql.start"
+      ]
     },
     {
       "label": "Redis:Start",
       "command": "make",
-      "args": ["redis.start"]
+      "args": [
+        "redis.start"
+      ]
     },
     {
       "label": "SQL:Migrations:Upgrade",
       "command": ".venv/bin/alembic",
-      "args": ["upgrade", "head"],
+      "args": [
+        "upgrade",
+        "head"
+      ],
       "options": {
         "cwd": "${workspaceFolder}/server"
       }
-    },
+    }
   ]
 }

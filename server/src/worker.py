@@ -1,4 +1,4 @@
-import logging
+from logging import getLogger
 from databases import Database
 from redis.asyncio import Redis
 
@@ -8,7 +8,7 @@ from src.database import DatabaseFactory
 from src.settings import Settings
 from src.data.sensor import SensorData
 
-logger = logging.getLogger(__name__)
+logger = getLogger(__name__)
 
 
 class Worker:
@@ -25,6 +25,11 @@ class Worker:
         await self.database.connect()
         async for message in create_subscription(self.redis, channel):
             logger.info(message.json())
-            if message.channel == "grow:v1:sensor":
-                await self.sensor.persist_reading(SensorReading.from_message(message))
+            match message.channel:
+                case "grow:v1:sensor":
+                    await self.sensor.persist_reading(
+                        SensorReading.from_message(message)
+                    )
+                case _:
+                    logger.warning("Unknown channel %s", message.channel)
         await self.database.disconnect()
