@@ -1,5 +1,5 @@
 from importlib import reload
-import sys
+from test.conftest import integration
 from unittest.mock import AsyncMock, MagicMock
 from src.settings import Settings
 
@@ -63,5 +63,6 @@ async def test_mocked_worker_unknown_message(
     mock_database.disconnect.assert_called_once()
 
 
+@integration
 def test_real_worker(settings):
     pass

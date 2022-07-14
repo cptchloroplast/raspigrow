@@ -1,3 +1,4 @@
+from os import environ
 from datetime import datetime, timedelta, timezone
 from unittest.mock import AsyncMock, MagicMock, patch
 import pytest
@@ -10,6 +11,11 @@ from src.redis import RedisFactory, RedisMessage
 
 
 pytest.mark.usefixtures("anyio_backend")
+
+
+integration = pytest.mark.skipif(
+    "TEST_INTEGRATION" not in environ, reason="Skipping integration tests"
+)
 
 
 @pytest.fixture
