@@ -17,8 +17,8 @@ class Settings(BaseSettings):
     REDIS_HOSTNAME = "localhost"
 
     # SQL
-    DATABASE_USERNAME: str
-    DATABASE_PASSWORD: str
+    DATABASE_USERNAME = "root"
+    DATABASE_PASSWORD = "password"
     DATABASE_HOSTNAME = "localhost"
     DATABASE_DATABASE = "grow"
     DATABASE_INIT = False
