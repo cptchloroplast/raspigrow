@@ -1,4 +1,6 @@
 # App
+app.install:
+	npm --prefix app install
 app.build:
 	docker build -t grow-app:latest app
 app.build.src:
@@ -11,6 +13,8 @@ app.stop:
 	docker compose stop app
 
 # Server
+server.install:
+	cd server; poetry install
 server.build:
 	docker build -t grow-server:latest server
 server.lint:
@@ -35,6 +39,8 @@ server.worker.stop:
 	docker compose stop worker
 
 # Client
+client.install:
+	pio pkg install -d client
 client.build:
 	pio run -d client
 client.upload:
@@ -55,4 +61,6 @@ redis.stop:
 	docker compose stop redis
 
 # Git Hooks
-pre-commit: server.lint.check server.test
+hooks.install:
+	git config core.hooksPath .githooks
+hooks.pre-commit: server.lint.check server.test
