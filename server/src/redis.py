@@ -29,7 +29,7 @@ class RedisMessage(BaseModel):
 class RedisFactory:
     @staticmethod
     def create(settings: Settings):
-        return Redis(settings.REDIS_HOSTNAME, decode_responses=True)
+        return Redis(host=settings.REDIS_HOSTNAME, decode_responses=True)
 
 
 async def create_subscription(redis: Redis, channel: str, canceller: Awaitable = None):
