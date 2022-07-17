@@ -1,5 +1,5 @@
 FROM python:3.10-alpine as build
-ENV CRYPTOGRAPHY_DONT_BUILD_RUST True
+ENV CRYPTOGRAPHY_DONT_BUILD_RUST=1
 RUN apk update
 RUN apk --no-cache add python3-dev gcc libc-dev g++ libffi-dev cargo musl-dev
 RUN pip install poetry
