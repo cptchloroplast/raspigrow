@@ -1,4 +1,4 @@
-name: docker-build.publish
+name: docker-build-push
 inputs:
   registry:
     required: true

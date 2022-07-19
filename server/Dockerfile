@@ -1,6 +1,6 @@
 FROM python:3.10-alpine as build
 RUN apk update
-RUN apk --no-cache add python3-dev gcc libc-dev g++ libffi-dev rust cargo
+RUN apk --no-cache add python3-dev gcc libc-dev g++ libffi-dev rust cargo libressl-dev musl-dev
 RUN pip install poetry
 COPY pyproject.toml poetry.lock ./
 RUN poetry export -o requirements.txt
