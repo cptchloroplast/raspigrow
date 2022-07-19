@@ -10,7 +10,8 @@ services:
     volumes:
       - /home/pi/certbot/conf:/etc/letsencrypt
     depends_on:
-      - api
+      app:
+        condition: service_started
   api:
     image: grow-server:latest
     container_name: grow-api
@@ -19,8 +20,8 @@ services:
       REDIS_HOSTNAME: redis
       DATABASE_HOSTNAME: mariadb
     depends_on:
-      - redis
-      - sql
+      migrations:
+        condition: service_completed_successfully
   worker:
     image: grow-server:latest
     container_name: grow-worker
@@ -30,8 +31,19 @@ services:
       REDIS_HOSTNAME: redis
       DATABASE_HOSTNAME: mariadb
     depends_on:
-      - redis
-      - sql
+      migrations:
+        condition: service_completed_successfully
+  migrations:
+    image: grow-server:latest
+    container_name: grow-migrations
+    build: server
+    command: alembic upgrade head
+    environment:
+      REDIS_HOSTNAME: redis
+      DATABASE_HOSTNAME: mariadb
+    depends_on:
+      sql:
+        condition: service_started
   redis:
     image: redis:6.2-alpine
     container_name: redis
