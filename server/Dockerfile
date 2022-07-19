@@ -1,4 +1,5 @@
 FROM python:3.10-bullseye as build
+RUN apt update && apt install -y build-essential libssl-dev libffi-dev python3-dev cargo
 RUN pip install --upgrade pip
 RUN pip install poetry
 COPY pyproject.toml poetry.lock ./
