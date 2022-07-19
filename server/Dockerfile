@@ -1,4 +1,5 @@
 FROM python:3.10-bullseye as build
+RUN pip install --upgrade pip
 RUN pip install poetry
 COPY pyproject.toml poetry.lock ./
 RUN poetry export -o requirements.txt
