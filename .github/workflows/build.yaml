@@ -5,7 +5,7 @@ on:
     types: [completed]
   workflow_dispatch:
 env:
-  branch: ${{ github.event_name == "workflow_run" && github.event.workflow_run.head_branch || github.event.workflow_dispatch.ref }}
+  branch: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.head_branch || github.event.workflow_dispatch.ref }}
   registry: ghcr.io
   image: ${{ github.repository }}
 jobs:
