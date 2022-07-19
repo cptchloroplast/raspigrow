@@ -17,8 +17,6 @@ services:
     build: server
     environment:
       REDIS_HOSTNAME: redis
-      DATABASE_USERNAME: root
-      DATABASE_PASSWORD: ${DATABASE_PASSWORD:-password}
       DATABASE_HOSTNAME: mariadb
     depends_on:
       - redis
@@ -30,8 +28,6 @@ services:
     command: python main.py
     environment:
       REDIS_HOSTNAME: redis
-      DATABASE_USERNAME: root
-      DATABASE_PASSWORD: ${DATABASE_PASSWORD:-password}
       DATABASE_HOSTNAME: mariadb
     depends_on:
       - redis
@@ -46,7 +42,7 @@ services:
     container_name: mariadb
     environment:
       MARIADB_DATABASE: grow
-      MARIADB_ROOT_PASSWORD: ${DATABASE_PASSWORD:-password}
+      MARIADB_ROOT_PASSWORD: password
     ports:
       - "3306:3306"
   certbot:
