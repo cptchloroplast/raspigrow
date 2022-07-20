@@ -37,6 +37,9 @@ server.worker.start.build:
 	docker compose up -d worker --build
 server.worker.stop:
 	docker compose stop worker
+## Migrations
+server.migrations.upgrade:
+	cd server; alembic upgrade head
 
 # Client
 client.install:

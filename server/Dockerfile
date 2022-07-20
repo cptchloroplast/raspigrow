@@ -1,6 +1,6 @@
-FROM python:3.10-alpine as build
-RUN apk update
-RUN apk --no-cache add python3-dev gcc libc-dev g++ libffi-dev rust cargo libressl-dev musl-dev
+FROM python:3.10-bullseye as build
+RUN apt update && apt install -y build-essential libssl-dev libffi-dev python3-dev cargo
+RUN pip install --upgrade pip
 RUN pip install poetry
 COPY pyproject.toml poetry.lock ./
 RUN poetry export -o requirements.txt
@@ -8,7 +8,7 @@ RUN python -m venv /opt/venv
 ENV PATH="/opt/venv/bin:$PATH"
 RUN pip install -r requirements.txt
 
-FROM python:3.10-alpine as release
+FROM python:3.10-slim-bullseye as release
 ENV PYTHONUNBUFFERED True
 COPY --from=build /opt/venv /opt/venv
 ENV PATH="/opt/venv/bin:$PATH"

@@ -1,15 +1,11 @@
 name: test
 on:
-  push: 
-    branches: [main]
+  push:
   workflow_dispatch:
 jobs:
   server:
     runs-on: ubuntu-latest
     env:
-      DATABASE_HOSTNAME: localhost
-      DATABASE_USERNAME: root
-      DATABASE_PASSWORD: password
       TEST_INTEGRATION: True
     services:
       mariadb:
@@ -37,7 +33,6 @@ jobs:
         run: pip install -r requirements.txt
       - run: which pip
       - name: Run database migrations
-        working-directory: server
-        run: alembic upgrade head
+        run: make server.migrations.upgrade
       - name: Test server with pytest
         run: make server.test

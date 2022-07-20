@@ -1,7 +1,8 @@
 FROM node:16.14-alpine as build
 WORKDIR /app
-COPY . .
+COPY package.json package-lock.json ./
 RUN npm ci
+COPY . .
 RUN npm run build
 
 FROM nginx:1.20-alpine as release

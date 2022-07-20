@@ -6,7 +6,7 @@
       "dependsOn": [
         "Redis:Start",
         "SQL:Start",
-        "SQL:Migrations:Upgrade"
+        "Server:Migrations:Upgrade"
       ],
       "dependsOrder": "sequence",
       "problemMatcher": []
@@ -26,15 +26,11 @@
       ]
     },
     {
-      "label": "SQL:Migrations:Upgrade",
-      "command": ".venv/bin/alembic",
+      "label": "Server:Migrations:Upgrade",
+      "command": "make",
       "args": [
-        "upgrade",
-        "head"
+        "server.migrations.upgrade"
       ],
-      "options": {
-        "cwd": "${workspaceFolder}/server"
-      }
     }
   ]
 }

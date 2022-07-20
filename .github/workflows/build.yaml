@@ -20,7 +20,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           ref: ${{ env.branch }}
-      - name: Build and push grow-server
+      - name: Build and push server Docker image
         uses: ./.github/actions/docker-build-push
         with:
           registry: ${{ env.registry }}
@@ -39,7 +39,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           ref: ${{ env.branch }}
-      - name: Build and push grow-server
+      - name: Build and push app Docker image
         uses: ./.github/actions/docker-build-push
         with:
           registry: ${{ env.registry }}
@@ -61,5 +61,5 @@ jobs:
           python-version: '3.10'
       - name: Install PlatformIO
         run: pip install platformio
-      - name: Build with PlatformIO
+      - name: Build client with PlatformIO
         run: make client.build
