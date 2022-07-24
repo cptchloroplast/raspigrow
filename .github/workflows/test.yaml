@@ -36,6 +36,7 @@ jobs:
       - name: Test server with pytest
         run: make server.test
   client:
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
