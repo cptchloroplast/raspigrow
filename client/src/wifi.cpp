@@ -4,14 +4,14 @@
 
 void initWifi() {
   Serial.print("Connecting to WiFi...");
-  WiFi.begin(SSID, PASSWORD);
+  WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
   while (WiFi.status() != WL_CONNECTED) {
     delay(2000);
     Serial.print(".");
   }
   Serial.println("");
   Serial.print("Connected to ");
-  Serial.println(SSID);
+  Serial.println(WIFI_SSID);
   Serial.print("IP address: ");
   Serial.println(WiFi.localIP());
 }

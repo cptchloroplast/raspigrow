@@ -1,3 +1,6 @@
+include client/.env
+export
+
 # App
 app.install:
 	npm --prefix app install
@@ -39,7 +42,7 @@ server.worker.stop:
 	docker compose stop worker
 ## Migrations
 server.migrations.upgrade:
-	cd server; alembic upgrade head
+	cd server; .venv/bin/alembic upgrade head
 
 # Client
 client.install:

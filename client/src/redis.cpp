@@ -11,7 +11,7 @@ const long interval = 2000;
 
 void initRedis() {
   Serial.println("Starting Redis...");
-  while(!client.connect(HOST, REDIS_PORT)) {
+  while(!client.connect(REDIS_HOSTNAME, REDIS_PORT)) {
     delay(2000);
     Serial.println(".");
   }
