@@ -27,9 +27,10 @@
     },
     {
       "label": "Server:Migrations:Upgrade",
-      "command": "make",
+      "command": "bash",
       "args": [
-        "server.migrations.upgrade"
+        "-c",
+        "source server/.venv/bin/activate; make server.migrations.upgrade"
       ],
     }
   ]
