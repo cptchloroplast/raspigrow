@@ -42,7 +42,7 @@ server.worker.stop:
 	docker compose stop worker
 ## Migrations
 server.migrations.upgrade:
-	cd server; .venv/bin/alembic upgrade head
+	cd server; alembic upgrade head
 
 # Client
 client.install:
