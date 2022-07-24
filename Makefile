@@ -71,4 +71,4 @@ redis.stop:
 # Git Hooks
 hooks.install:
 	git config core.hooksPath .githooks
-hooks.pre-commit: server.lint.check server.test
+hooks.pre-commit: server.lint.check server.test client.test
