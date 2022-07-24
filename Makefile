@@ -53,6 +53,8 @@ client.upload:
 	pio run -d client -t upload
 client.watch:
 	pio device monitor -b 115200
+client.test.native:
+	pio test -d client -e native
 
 # SQL
 sql.start:

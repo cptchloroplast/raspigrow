@@ -35,3 +35,16 @@ jobs:
         run: make server.migrations.upgrade
       - name: Test server with pytest
         run: make server.test
+  client:
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+      - name: Setup python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      - name: Install PlatformIO
+        run: pip install platformio
+      - name: Run native tests with PlatformIO
+        run: make client.test.native
