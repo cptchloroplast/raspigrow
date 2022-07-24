@@ -2,14 +2,18 @@ name: deploy
 on:
   workflow_run:
     workflows: [build]
-    branches: [main]
     types: [completed]
+  workflow_dispatch:
+env:
+  branch: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.head_branch || github.event.workflow_dispatch.ref }}
 jobs:
   raspberry_pi:
     runs-on: self-hosted
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    if: ${{ github.event.workflow_run.conclusion == 'success' && env.branch == 'main' }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+        with:
+          ref: ${{ env.branch }}
       - name: Deploy with Docker Compose
         run: sudo docker-compose up -d --build
