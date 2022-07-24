@@ -48,13 +48,13 @@ server.migrations.upgrade:
 client.install:
 	pio pkg install -d client
 client.build:
-	pio run -d client
+	pio run -d client -e board
 client.upload:
-	pio run -d client -t upload
+	pio run -d client -t upload -e board
 client.watch:
 	pio device monitor -b 115200
-client.test.native:
-	pio test -d client -e native
+client.test:
+	pio test -d client -e test
 
 # SQL
 sql.start:
