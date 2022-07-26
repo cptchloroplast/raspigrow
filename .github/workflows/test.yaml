@@ -50,9 +50,11 @@ jobs:
         run: make client.test
   app:
     runs-on: ubuntu-latest
+    steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - name: Setup node
+        uses: actions/setup-node@v3
         with:
           node-version: 16
       - name: Install dependencies with npm
