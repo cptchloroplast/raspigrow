@@ -13,9 +13,11 @@ services:
       api:
         condition: service_started
   api:
-    image: grow-server:latest
+    image: grow-api:development
     container_name: grow-api
-    build: server
+    build: 
+      context: server
+      stage: api
     environment:
       REDIS_HOSTNAME: redis
       DATABASE_HOSTNAME: mariadb
@@ -23,10 +25,11 @@ services:
       migrations:
         condition: service_completed_successfully
   worker:
-    image: grow-server:latest
+    image: grow-worker:development
     container_name: grow-worker
-    build: server
-    command: python main.py
+    build: 
+      context: server
+      target: worker
     environment:
       REDIS_HOSTNAME: redis
       DATABASE_HOSTNAME: mariadb
@@ -34,10 +37,11 @@ services:
       migrations:
         condition: service_completed_successfully
   migrations:
-    image: grow-server:latest
+    image: grow-migrations:development
     container_name: grow-migrations
-    build: server
-    command: alembic upgrade head
+    build: 
+      context: server
+      target: migrations
     environment:
       REDIS_HOSTNAME: redis
       DATABASE_HOSTNAME: mariadb
