@@ -5,8 +5,6 @@ export
 app.install:
 	npm --prefix app install
 app.build:
-	docker build -t grow-app:latest app
-app.build.src:
 	npm --prefix app run build
 app.start:
 	docker compose up -d app
@@ -20,8 +18,6 @@ app.test:
 # Server
 server.install:
 	cd server; poetry install
-server.build:
-	docker build -t grow-server:latest server
 server.lint:
 	black server
 server.lint.check:
