@@ -48,3 +48,16 @@ jobs:
         run: pip install platformio
       - name: Run tests with unity
         run: make client.test
+  app:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - name: Install dependencies with npm
+        run: make app.install
+      - name: Run tests with vitest
+        run: make app.test

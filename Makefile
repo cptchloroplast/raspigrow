@@ -12,6 +12,8 @@ app.start.build:
 	docker compose up -d app --build
 app.stop:
 	docker compose stop app
+app.test:
+	npm --prefix app test
 
 # Server
 server.install:
@@ -67,4 +69,4 @@ redis.stop:
 # Git Hooks
 hooks.install:
 	git config core.hooksPath .githooks
-hooks.pre-commit: server.lint.check server.test client.test
+hooks.pre-commit: server.lint.check server.test client.test app.test
