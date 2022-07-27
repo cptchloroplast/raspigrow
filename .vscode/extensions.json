@@ -8,7 +8,9 @@
         "mtxr.sqltools",
         "rangav.vscode-thunder-client",
         "dbaeumer.vscode-eslint",
-        "GitHub.vscode-pull-request-github"
+        "github.vscode-pull-request-github",
+        "eamodio.gitlens",
+        "hediet.vscode-drawio"
     ],
     "unwantedRecommendations": [
         "ms-vscode.cpptools-extension-pack"
