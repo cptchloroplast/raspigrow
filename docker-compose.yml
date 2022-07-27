@@ -1,8 +1,8 @@
 version: "3.8"
 services:
   app:
-    image: grow-app:latest
-    container_name: grow-app
+    image: okkema.grow.app:development
+    container_name: okkema.grow.app
     build: app
     ports:
       - "80:80"
@@ -13,11 +13,11 @@ services:
       api:
         condition: service_started
   api:
-    image: grow-api:development
-    container_name: grow-api
+    image: okkema.grow.api:development
+    container_name: okkema.grow.api
     build: 
       context: server
-      stage: api
+      target: api
     environment:
       REDIS_HOSTNAME: redis
       DATABASE_HOSTNAME: mariadb
@@ -25,8 +25,8 @@ services:
       migrations:
         condition: service_completed_successfully
   worker:
-    image: grow-worker:development
-    container_name: grow-worker
+    image: okkema.grow.worker:development
+    container_name: okkema.grow.worker
     build: 
       context: server
       target: worker
@@ -37,8 +37,8 @@ services:
       migrations:
         condition: service_completed_successfully
   migrations:
-    image: grow-migrations:development
-    container_name: grow-migrations
+    image: okkema.grow.migrations:development
+    container_name: okkema.grow.migrations
     build: 
       context: server
       target: migrations
