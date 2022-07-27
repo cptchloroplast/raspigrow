@@ -1,7 +1,7 @@
 version: "3.8"
 services:
   app:
-    image: okkema.grow.app:development
+    image: ghcr.io/okkema/grow.app:development
     container_name: okkema.grow.app
     build: app
     ports:
@@ -13,7 +13,7 @@ services:
       api:
         condition: service_started
   api:
-    image: okkema.grow.api:development
+    image: ghcr.io/okkema/grow.api:development
     container_name: okkema.grow.api
     build: 
       context: server
@@ -25,7 +25,7 @@ services:
       migrations:
         condition: service_completed_successfully
   worker:
-    image: okkema.grow.worker:development
+    image: ghcr.io/okkema/grow.worker:development
     container_name: okkema.grow.worker
     build: 
       context: server
@@ -37,7 +37,7 @@ services:
       migrations:
         condition: service_completed_successfully
   migrations:
-    image: okkema.grow.migrations:development
+    image: ghcr.io/okkema/grow.migrations:development
     container_name: okkema.grow.migrations
     build: 
       context: server
@@ -50,12 +50,12 @@ services:
         condition: service_started
   redis:
     image: redis:6.2-alpine
-    container_name: redis
+    container_name: okkema.grow.redis
     ports:
       - "6379:6379"
   sql:
     image: mariadb:10.8.3
-    container_name: mariadb
+    container_name: okkema.grow.mariadb
     environment:
       MARIADB_DATABASE: grow
       MARIADB_ROOT_PASSWORD: password
@@ -63,7 +63,7 @@ services:
       - "3306:3306"
   certbot:
     image: certbot/dns-cloudflare:arm64v8-v1.25.0
-    container_name: certbot
+    container_name: okkema.grow.certbot
     volumes: 
       - /home/pi/certbot/conf:/etc/letsencrypt
       - /home/pi/certbot/logs:/var/log/letsencrypt
