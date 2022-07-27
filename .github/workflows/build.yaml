@@ -5,11 +5,11 @@ on:
     types: [completed]
   workflow_dispatch:
 env:
-  branch: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.head_branch || github.event.workflow_dispatch.ref }}
+  branch: ${{ (github.event_name == 'workflow_run' && github.event.workflow_run.head_branch) || github.event.workflow_dispatch.ref }}
   registry: ghcr.io
   image: ${{ github.repository }}
 jobs:
-  server:
+  api:
     runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
     permissions:
@@ -29,6 +29,17 @@ jobs:
           image: ${{ env.image }}-api
           context: server
           target: api
+  worker:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ env.branch }}
       - name: Build and push worker Docker image
         uses: ./.github/actions/docker-build-push
         with:
@@ -38,6 +49,17 @@ jobs:
           image: ${{ env.image }}-worker
           context: server
           target: worker
+  migrations:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ env.branch }}
       - name: Build and push migrations Docker image
         uses: ./.github/actions/docker-build-push
         with:
