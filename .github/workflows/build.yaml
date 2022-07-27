@@ -3,15 +3,14 @@ on:
   workflow_run:
     workflows: [test]
     types: [completed]
-  workflow_dispatch:
 env:
-  branch: ${{ (github.event_name == 'workflow_run' && github.event.workflow_run.head_branch) || github.event.workflow_dispatch.ref }}
+  branch: ${{ github.event.workflow_run.head_branch }}
   registry: ghcr.io
   image: okkema.grow
 jobs:
   api:
     runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     permissions:
       contents: read
       packages: write
@@ -31,7 +30,7 @@ jobs:
           target: api
   worker:
     runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     permissions:
       contents: read
       packages: write
@@ -51,7 +50,7 @@ jobs:
           target: worker
   migrations:
     runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     permissions:
       contents: read
       packages: write
@@ -71,7 +70,7 @@ jobs:
           target: migrations
   app:
     runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     permissions:
       contents: read
       packages: write
@@ -90,7 +89,7 @@ jobs:
           context: app
   client:
     runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
