@@ -10,7 +10,8 @@
         "dbaeumer.vscode-eslint",
         "github.vscode-pull-request-github",
         "eamodio.gitlens",
-        "hediet.vscode-drawio"
+        "hediet.vscode-drawio",
+        "ZixuanChen.vitest-explorer"
     ],
     "unwantedRecommendations": [
         "ms-vscode.cpptools-extension-pack"

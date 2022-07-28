@@ -8,7 +8,7 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "App",
+      "name": "app",
       "type": "pwa-node",
       "request": "launch",
       "cwd": "${workspaceFolder}/app",
@@ -23,7 +23,19 @@
       ],
     },
     {
-      "name": "Server - Api",
+      "name": "app:test",
+      "type": "pwa-node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/app",
+      "autoAttachChildProcesses": true,
+      "program": "node_modules/vitest/vitest.mjs",
+      "skipFiles": ["<node_internals>/**", "**/node_modules/**"],
+      "args": ["run"],
+      "smartStep": true,
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "server:api",
       "type": "python",
       "request": "launch",
       "cwd": "${workspaceFolder}/server",
@@ -36,7 +48,7 @@
       "preLaunchTask": "Server:Develop",
     },
     {
-      "name": "Server - Worker",
+      "name": "server:worker",
       "type": "python",
       "request": "launch",
       "cwd": "${workspaceFolder}/server",
@@ -47,9 +59,9 @@
       "preLaunchTask": "Server:Develop",
     },
     {
+      "name": "client",
       "type": "platformio-debug",
       "request": "launch",
-      "name": "Client",
       "executable": "/home/ben/Projects/raspigrow/.pio/build/nodemcuv2/firmware.elf",
       "projectEnvName": "nodemcuv2",
       "toolchainBinDir": "/home/ben/.platformio/packages/toolchain-xtensa/bin",
