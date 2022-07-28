@@ -1,9 +1,10 @@
 [tool.poetry]
 name = "grow"
 version = "0.1.0"
-description = "Grow Server"
+description = "Greenhouse Automation Software"
 authors = ["Okkema Labs <correos@okkema.org>"]
 license = "MIT"
+repository = "https://github.com/okkema/grow"
 
 [tool.poetry.dependencies]
 python = "^3.10"

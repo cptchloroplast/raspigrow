@@ -1,11 +1,26 @@
 {
   "name": "@okkema/grow.app",
-  "private": true,
+  "description": "Greenhouse Automation Software",
   "version": "0.1.0",
+  "author": {
+    "name": "Okkema Labs",
+    "email": "correos@okkema.org",
+    "url": "https://okkema.org"
+  },
+  "bugs": {
+    "email": "correos@okkema.org",
+    "url": "https://github.com/okkema/grow/issues"
+  },
+  "license": "MIT",
+  "readme": "https://github.com/okkema/grow/blob/main/README.md",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/okkema/grow.git"
+  },
   "scripts": {
-    "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
+    "start": "vite",
     "test": "vitest run"
   },
   "dependencies": {
