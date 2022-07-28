@@ -20,7 +20,7 @@ services:
       target: api
     environment:
       REDIS_HOSTNAME: redis
-      DATABASE_HOSTNAME: mariadb
+      DATABASE_HOSTNAME: sql
     depends_on:
       migrations:
         condition: service_completed_successfully
@@ -32,7 +32,7 @@ services:
       target: worker
     environment:
       REDIS_HOSTNAME: redis
-      DATABASE_HOSTNAME: mariadb
+      DATABASE_HOSTNAME: sql
     depends_on:
       migrations:
         condition: service_completed_successfully
@@ -44,7 +44,7 @@ services:
       target: migrations
     environment:
       REDIS_HOSTNAME: redis
-      DATABASE_HOSTNAME: mariadb
+      DATABASE_HOSTNAME: sql
     depends_on:
       sql:
         condition: service_started
