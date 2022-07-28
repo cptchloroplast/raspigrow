@@ -5,6 +5,7 @@ on:
     types: [completed]
 env:
   branch: ${{ github.event.workflow_run.head_branch }}
+concurrency: deploy
 jobs:
   raspberry_pi:
     runs-on: self-hosted
