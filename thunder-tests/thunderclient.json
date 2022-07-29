@@ -1,0 +1,30 @@
+[
+  {
+    "_id": "6c4947f2-40aa-4d82-bf52-f20ce9ea3988",
+    "colId": "04bfe520-cdac-4727-ad61-e30a570e5d41",
+    "containerId": "1cbe792e-2b89-4eee-aafb-9cacc687352b",
+    "name": "Stream Sensor",
+    "url": "{{HOSTNAME}}/v1/sensor/stream",
+    "method": "GET",
+    "sortNum": 10000,
+    "created": "2022-07-29T04:43:28.613Z",
+    "modified": "2022-07-29T04:43:53.502Z",
+    "headers": [],
+    "params": [],
+    "tests": []
+  },
+  {
+    "_id": "009c404a-d92f-4a2d-aef2-67221b7e1e09",
+    "colId": "04bfe520-cdac-4727-ad61-e30a570e5d41",
+    "containerId": "1cbe792e-2b89-4eee-aafb-9cacc687352b",
+    "name": "Read Sensor History",
+    "url": "{{HOSTNAME}}/v1/sensor/history",
+    "method": "GET",
+    "sortNum": 20000,
+    "created": "2022-07-29T04:45:33.935Z",
+    "modified": "2022-07-29T04:45:52.806Z",
+    "headers": [],
+    "params": [],
+    "tests": []
+  }
+]

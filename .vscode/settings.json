@@ -51,4 +51,5 @@
   "python.testing.unittestEnabled": false,
   "python.testing.pytestEnabled": true,
   "vitest.enable": true,
+  "thunder-client.saveToWorkspace": true,  
 }
