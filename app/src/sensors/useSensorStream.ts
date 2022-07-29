@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 
-type SensorReading = {
-  timestamp: Date
+export type SensorReading = {
+  timestamp: string
   channel: string
   event: "message"
   data: {
@@ -10,13 +10,14 @@ type SensorReading = {
   }
 }
 
+export const V1_PATH = "/api/v1/sensor/stream"
 
 const useSensorStream = (length = 30) => {
   const [current, setCurrent] = useState<SensorReading>()
   const [history, setHistory] = useState<SensorReading[]>([])
 
   useEffect(() => {
-    const eventSource = new EventSource("/api/v1/sensor/stream");
+    const eventSource = new EventSource(V1_PATH);
     eventSource.addEventListener("message", (event) => {
       const reading: SensorReading = JSON.parse(event.data)
       setCurrent(reading)
