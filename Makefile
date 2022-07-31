@@ -66,6 +66,12 @@ redis.start:
 redis.stop:
 	docker compose stop redis
 
+# MQTT
+mqtt.start:
+	docker compose up -d mqtt
+mqtt.stop:
+	docker compose stop mqtt
+
 # Git Hooks
 hooks.install:
 	git config core.hooksPath .githooks

@@ -11,7 +11,8 @@
         "github.vscode-pull-request-github",
         "eamodio.gitlens",
         "hediet.vscode-drawio",
-        "ZixuanChen.vitest-explorer"
+        "zixuanchen.vitest-explorer",
+        "rpdswtk.vsmqtt"
     ],
     "unwantedRecommendations": [
         "ms-vscode.cpptools-extension-pack"
