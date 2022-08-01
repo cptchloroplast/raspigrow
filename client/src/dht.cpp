@@ -4,10 +4,6 @@
 #include <math.h>
 
 DHT dht(DHTPIN, DHTTYPE);
-StaticJsonDocument<DHTSIZE> doc;
-
-unsigned long previous = 0;
-const long interval = 2000;
 
 void initDHT() {
   Serial.println("Starting DHT sensor...");
@@ -16,11 +12,8 @@ void initDHT() {
 }
 
 StaticJsonDocument<DHTSIZE> readDHT() {
-  unsigned long current = millis();
-  if(current - previous >= interval) {
-    doc["temperature"] = roundf(dht.readTemperature() * 100) / 100.0;
-    doc["humidity"] = dht.readHumidity();
-    previous = current;
-  }
+  StaticJsonDocument<DHTSIZE> doc;
+  doc["temperature"] = roundf(dht.readTemperature() * 100) / 100.0;
+  doc["humidity"] = dht.readHumidity();
   return doc;
 }

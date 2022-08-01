@@ -9,3 +9,7 @@
 #ifndef WIFI_PASSWORD
 #define WIFI_PASSWORD "WIFI_PASSWORD"
 #endif
+
+#ifndef MQTT_HOSTNAME
+#define MQTT_HOSTNAME "MQTT_HOSTNAME"
+#endif

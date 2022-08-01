@@ -50,9 +50,7 @@
                 "/home/ben/.platformio/packages/framework-arduinoespressif8266/libraries/lwIP_enc28j60/src",
                 "/home/ben/.platformio/packages/framework-arduinoespressif8266/libraries/lwIP_w5100/src",
                 "/home/ben/.platformio/packages/framework-arduinoespressif8266/libraries/lwIP_w5500/src",
-                "/home/ben/.platformio/packages/tool-unity",
-                "",
-                "${workspaceFolder}/client/.pio/libdeps/nodemcuv2/**"
+                "${workspaceFolder}/client/.pio/libdeps/**"
             ],
             "browse": {
                 "limitSymbolsToIncludedHeaders": true,
@@ -99,8 +97,7 @@
                     "/home/ben/.platformio/packages/framework-arduinoespressif8266/libraries/lwIP_enc28j60/src",
                     "/home/ben/.platformio/packages/framework-arduinoespressif8266/libraries/lwIP_w5100/src",
                     "/home/ben/.platformio/packages/framework-arduinoespressif8266/libraries/lwIP_w5500/src",
-                    "/home/ben/.platformio/packages/tool-unity",
-                    ""
+                    "${workspaceFolder}/client/.pio/libdeps/**"                    
                 ]
             },
             "defines": [
