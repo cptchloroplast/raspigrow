@@ -34,7 +34,7 @@ void onConnectionEstablished()
     auto reading = readDHT();
     String json = "";
     serializeJson(reading, json);
-    client.publish("grow:v1:sensor", json.c_str());
+    client.publish("grow/v1/sensor", json.c_str());
     return true;
   });
 }

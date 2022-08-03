@@ -2,7 +2,7 @@ from datetime import datetime
 from typing import Optional
 from pydantic import BaseModel
 
-from src.redis import RedisMessage
+from src.mqtt import Message
 
 
 class SensorReading(BaseModel):
@@ -16,10 +16,10 @@ class SensorReading(BaseModel):
         orm_mode = True
 
     @classmethod
-    def from_message(cls, message: RedisMessage):
+    def from_message(cls, message: Message):
         return cls(
             timestamp=message.timestamp,
-            channel=message.channel,
+            channel=message.topic,
             temperature=message.data.get("temperature"),
             humidity=message.data.get("humidity"),
         )
