@@ -3,7 +3,7 @@ from logging import getLogger
 from databases import Database
 
 from src.mqtt import ClientFactory, Message
-from src.database import DatabaseFactory
+from src.sql import DatabaseFactory
 from src.settings import Settings
 from src.data.sensor import SensorData
 from src.models.sensor import SensorReading

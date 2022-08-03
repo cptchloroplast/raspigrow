@@ -1,6 +1,6 @@
 from databases import Database
 
-from src.database import DatabaseFactory
+from src.sql import DatabaseFactory
 from src.api.contexts.base import BaseContext
 from src.data.sensor import SensorData
 from src.settings import Settings

@@ -4,7 +4,7 @@ from unittest.mock import AsyncMock, MagicMock, patch
 import pytest
 from random import randint
 
-from src.database import DatabaseFactory
+from src.sql import DatabaseFactory
 from src.settings import Settings
 from src.models.sensor import SensorReading
 from src.redis import RedisFactory, RedisMessage
