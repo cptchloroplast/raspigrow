@@ -12,7 +12,8 @@
         "eamodio.gitlens",
         "hediet.vscode-drawio",
         "zixuanchen.vitest-explorer",
-        "rpdswtk.vsmqtt"
+        "rpdswtk.vsmqtt",
+        "mtxr.sqltools-driver-mysql"
     ],
     "unwantedRecommendations": [
         "ms-vscode.cpptools-extension-pack"
