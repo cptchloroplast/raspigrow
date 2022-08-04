@@ -26,7 +26,7 @@ async def stream(
     ```
     {
         "timestamp": date-time,
-        "channel": string,
+        "topic": string,
         "data": {
             "temperature": float,
             "humidity": integer

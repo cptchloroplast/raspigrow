@@ -2,31 +2,39 @@
 	"version": "2.0.0",
 	"tasks": [
     {
-      "label": "Server:Develop",
+      "label": "server:start",
       "dependsOn": [
-        "Redis:Start",
-        "SQL:Start",
-        "Server:Migrations:Upgrade"
+        "redis:start",
+        "sql:start",
+        "mqtt:start",
+        "server:migrations:upgrade"
       ],
       "dependsOrder": "sequence",
       "problemMatcher": []
     },
     {
-      "label": "SQL:Start",
+      "label": "sql:start",
       "command": "make",
       "args": [
         "sql.start"
       ]
     },
     {
-      "label": "Redis:Start",
+      "label": "redis:start",
       "command": "make",
       "args": [
         "redis.start"
       ]
     },
     {
-      "label": "Server:Migrations:Upgrade",
+      "label": "mqtt:start",
+      "command": "make",
+      "args": [
+        "mqtt.start"
+      ]
+    },
+    {
+      "label": "server:migrations:upgrade",
       "command": "bash",
       "args": [
         "-c",

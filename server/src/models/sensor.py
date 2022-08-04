@@ -8,7 +8,7 @@ from src.mqtt import Message
 class SensorReading(BaseModel):
     id: Optional[int]
     timestamp: datetime
-    channel: Optional[str]
+    topic: Optional[str]
     temperature: float
     humidity: int
 
@@ -19,7 +19,7 @@ class SensorReading(BaseModel):
     def from_message(cls, message: Message):
         return cls(
             timestamp=message.timestamp,
-            channel=message.topic,
+            topic=message.topic,
             temperature=message.data.get("temperature"),
             humidity=message.data.get("humidity"),
         )

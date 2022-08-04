@@ -7,7 +7,8 @@ from random import randint
 from src.sql import DatabaseFactory
 from src.settings import Settings
 from src.models.sensor import SensorReading
-from src.redis import RedisFactory, RedisMessage
+from src.redis import RedisFactory
+from src.mqtt import Message
 
 
 pytest.mark.usefixtures("anyio_backend")
@@ -87,7 +88,7 @@ def unknown_message():
 @pytest.fixture
 def v1_sensor_message():
     return create_message(
-        channel="grow:v1:sensor",
+        topic="grow/v1/sensor",
         data={"temperature": get_temperature(), "humidity": get_humidity()},
     )
 
@@ -114,20 +115,20 @@ def get_humidity():
 
 
 def create_message(
-    timestamp=datetime.now(timezone.utc), channel="grow:v1:test", data={"key": "value"}
+    timestamp=datetime.now(timezone.utc), topic="grow/v1/test", data={"key": "value"}
 ):
-    return RedisMessage(timestamp=timestamp, channel=channel, data=data)
+    return Message(timestamp=timestamp, topic=topic, data=data)
 
 
 def create_reading(
     timestamp=datetime.now(timezone.utc),
-    channel="grow:test:v1",
+    topic="grow/test/v1",
     temperature=get_temperature(),
     humidity=get_humidity(),
 ):
     return SensorReading(
         timestamp=timestamp,
-        channel=channel,
+        topic=topic,
         temperature=temperature,
         humidity=humidity,
     )
