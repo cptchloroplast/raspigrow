@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 
 export type SensorReading = {
   timestamp: string
-  channel: string
+  topic: string
   event: "message"
   data: {
     temperature: number
@@ -12,7 +12,7 @@ export type SensorReading = {
 
 export const V1_PATH = "/api/v1/sensor/stream"
 
-const useSensorStream = (length = 30) => {
+const useSensorStream = (length = 60) => {
   const [current, setCurrent] = useState<SensorReading>()
   const [history, setHistory] = useState<SensorReading[]>([])
 

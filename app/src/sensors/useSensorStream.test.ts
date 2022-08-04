@@ -10,7 +10,7 @@ const createReading = (index: number): SensorReading => {
     const timestamp = new Date()
     timestamp.setSeconds(timestamp.getSeconds() + index)
     return {
-        channel: "grow:V1:test",
+        topic: "grow/v1/test",
         event: "message",
         timestamp: timestamp.toISOString(),
         data: {
