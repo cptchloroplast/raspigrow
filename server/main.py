@@ -15,5 +15,4 @@ def create_api():
 
 
 if __name__ == "__main__":
-    worker = Worker(settings)
-    run(worker.start("grow:*"))
+    run(Worker(settings).start("grow/#"))

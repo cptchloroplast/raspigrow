@@ -30,7 +30,7 @@ sensor_readings = Table(
     metadata,
     Column("id", Integer, primary_key=True),
     Column("timestamp", Timestamp, nullable=False),
-    Column("channel", String(32), nullable=False),
+    Column("topic", String(32), nullable=False),
     Column("temperature", Float, nullable=False),
     Column("humidity", Integer, nullable=False),
 )

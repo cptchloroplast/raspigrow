@@ -12,6 +12,8 @@ services:
     depends_on:
       api:
         condition: service_started
+      certbot:
+        condition: service_completed_successfully
   api:
     image: ghcr.io/okkema/grow.api:development
     container_name: okkema.grow.api
@@ -21,9 +23,14 @@ services:
     environment:
       REDIS_HOSTNAME: redis
       DATABASE_HOSTNAME: sql
+      MQTT_HOSTNAME: mqtt
     depends_on:
       migrations:
         condition: service_completed_successfully
+      mqtt:
+        condition: service_started
+      redis:
+        condition: service_started
   worker:
     image: ghcr.io/okkema/grow.worker:development
     container_name: okkema.grow.worker
@@ -33,9 +40,14 @@ services:
     environment:
       REDIS_HOSTNAME: redis
       DATABASE_HOSTNAME: sql
+      MQTT_HOSTNAME: mqtt
     depends_on:
       migrations:
         condition: service_completed_successfully
+      mqtt:
+        condition: service_started
+      redis:
+        condition: service_started
   migrations:
     image: ghcr.io/okkema/grow.migrations:development
     container_name: okkema.grow.migrations
@@ -43,11 +55,17 @@ services:
       context: server
       target: migrations
     environment:
-      REDIS_HOSTNAME: redis
       DATABASE_HOSTNAME: sql
     depends_on:
       sql:
         condition: service_started
+  mqtt:
+    image: eclipse-mosquitto:2.0.14
+    container_name: okkema.grow.mosquitto
+    command: mosquitto -c /mosquitto-no-auth.conf
+    ports:
+      - "1883:1883"
+      - "9001:9001"
   redis:
     image: redis:6.2-alpine
     container_name: okkema.grow.redis

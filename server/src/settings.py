@@ -23,6 +23,9 @@ class Settings(BaseSettings):
     DATABASE_DATABASE = "grow"
     DATABASE_INIT = False
 
+    # MQTT
+    MQTT_HOSTNAME = "localhost"
+
     @property
     def DATABASE_URL(self):
         return self._get_base_database_url("pymysql")

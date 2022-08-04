@@ -3,7 +3,7 @@ from sqlalchemy import create_engine
 from alembic import context
 
 from src.settings import Settings
-from src.database import metadata
+from src.sql import metadata
 
 config = context.config
 settings = Settings()

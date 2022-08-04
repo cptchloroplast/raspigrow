@@ -20,13 +20,13 @@ async def stream(
     stream: StreamContext = Depends(StreamContext.depends),
 ):
     """
-    Stream sensor data from the API via [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events), published at 2 second intervals.
+    Stream sensor data from the API via [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events), published at 1 second intervals.
 
     The data is JSON formatted with the following structure:
     ```
     {
         "timestamp": date-time,
-        "channel": string,
+        "topic": string,
         "data": {
             "temperature": float,
             "humidity": integer
@@ -39,7 +39,7 @@ async def stream(
     - `humidity` is percent relative humidity (%RH)
     """
 
-    return EventSourceResponse(stream.subscribe(request.is_disconnected))
+    return EventSourceResponse(stream.subscribe())
 
 
 @router.get("/history", name="Read Sensor History", response_model=List[SensorReading])
