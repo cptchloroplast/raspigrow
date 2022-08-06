@@ -33,10 +33,10 @@ class Worker:
                     await client.subscribe(topic)
                     async for raw in messages:
                         message = Message.from_raw(raw)
+                        logger.info(message.json())
                         await self.handle(database, message)
 
     async def handle(self, database: Database, message: Message):
-        logger.info(message.json())
         match message.topic:
             case "grow/v1/sensor":
                 await SensorData(database).persist_reading(

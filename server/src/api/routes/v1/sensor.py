@@ -6,6 +6,7 @@ from sse_starlette import EventSourceResponse
 from src.api.contexts.stream import StreamContext
 from src.api.contexts.data import DataContext
 from src.models.sensor import SensorReading
+from src.api.auth import authenitcated
 
 router = APIRouter(prefix="/v1/sensor", tags=["v1", "sensor"])
 
@@ -47,6 +48,7 @@ async def history(
     start: datetime = datetime.now(timezone.utc) - timedelta(days=1),
     end: datetime = datetime.now(timezone.utc),
     data: DataContext = Depends(DataContext.depends),
+    username: str = Depends(authenitcated),
 ):
     history = await data.sensor.get_history(start, end)
     return history
