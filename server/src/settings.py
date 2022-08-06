@@ -21,25 +21,24 @@ class Settings(BaseSettings):
     REDIS_HOSTNAME = "localhost"
 
     # SQL
-    DATABASE_USERNAME = "root"
-    DATABASE_PASSWORD = "password"
-    DATABASE_HOSTNAME = "localhost"
-    DATABASE_DATABASE = "grow"
-    DATABASE_INIT = False
+    SQL_HOSTNAME = "localhost"
+    SQL_DATABASE = "grow"
+    SQL_USERNAME = "root"
+    SQL_PASSWORD = "password"
 
     # MQTT
     MQTT_HOSTNAME = "localhost"
 
     @property
-    def DATABASE_URL(self):
-        return self._get_base_database_url("pymysql")
+    def SQL_URL(self):
+        return self._get_base_sql_url("pymysql")
 
     @property
-    def DATABASE_URL_ASYNC(self):
-        return self._get_base_database_url("aiomysql")
+    def SQL_URL_ASYNC(self):
+        return self._get_base_sql_url("aiomysql")
 
-    def _get_base_database_url(self, driver: str):
-        return f"mysql+{driver}://{self.DATABASE_USERNAME}:{self.DATABASE_PASSWORD}@{self.DATABASE_HOSTNAME}/{self.DATABASE_DATABASE}"
+    def _get_base_sql_url(self, driver: str):
+        return f"mysql+{driver}://{self.SQL_USERNAME}:{self.SQL_PASSWORD}@{self.SQL_HOSTNAME}/{self.SQL_DATABASE}"
 
     class Config:
         env_file = join(dirname(abspath(__file__)), "../.env")

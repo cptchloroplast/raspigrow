@@ -19,7 +19,7 @@ class Timestamp(TypeDecorator):
 class DatabaseFactory:
     @staticmethod
     def create(settings: Settings):
-        return Database(settings.DATABASE_URL_ASYNC)
+        return Database(settings.SQL_URL)
 
 
 metadata = MetaData()

@@ -7,7 +7,7 @@ from src.sql import metadata
 
 config = context.config
 settings = Settings()
-url = settings.DATABASE_URL
+url = settings.SQL_URL
 
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
