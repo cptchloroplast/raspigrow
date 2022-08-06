@@ -49,6 +49,8 @@ client.build:
 	pio run -d client -e board
 client.upload:
 	pio run -d client -t upload -e board
+client.upload.ota:
+	pio run -d client -t upload -e board --upload-port grow.local
 client.watch:
 	pio device monitor -b 115200
 client.test:

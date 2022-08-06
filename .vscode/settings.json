@@ -54,8 +54,14 @@
   "thunder-client.saveToWorkspace": true,
   "vsmqtt.brokerProfiles": [
     {
-      "name": "grow",
+      "name": "grow:local",
       "host": "localhost",
+      "port": 1883,
+      "clientId": "vsmqtt_client"
+    },
+    {
+      "name": "grow:prod",
+      "host": "grow.okkema.org",
       "port": 1883,
       "clientId": "vsmqtt_client"
     }
