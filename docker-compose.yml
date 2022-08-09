@@ -22,7 +22,7 @@ services:
       target: api
     environment:
       REDIS_HOSTNAME: redis
-      DATABASE_HOSTNAME: sql
+      SQL_HOSTNAME: sql
       MQTT_HOSTNAME: mqtt
     depends_on:
       migrations:
@@ -39,7 +39,7 @@ services:
       target: worker
     environment:
       REDIS_HOSTNAME: redis
-      DATABASE_HOSTNAME: sql
+      SQL_HOSTNAME: sql
       MQTT_HOSTNAME: mqtt
     depends_on:
       migrations:
@@ -55,7 +55,7 @@ services:
       context: server
       target: migrations
     environment:
-      DATABASE_HOSTNAME: sql
+      SQL_HOSTNAME: sql
     depends_on:
       sql:
         condition: service_started

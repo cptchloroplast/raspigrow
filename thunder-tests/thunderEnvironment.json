@@ -5,11 +5,19 @@
     "default": true,
     "sortNum": 10000,
     "created": "2022-07-29T04:42:55.473Z",
-    "modified": "2022-07-29T04:43:13.439Z",
+    "modified": "2022-08-06T04:05:25.022Z",
     "data": [
       {
         "name": "HOSTNAME",
         "value": "http://localhost:8000"
+      },
+      {
+        "name": "USERNAME",
+        "value": "guest"
+      },
+      {
+        "name": "PASSWORD",
+        "value": "guest"
       }
     ]
   }
