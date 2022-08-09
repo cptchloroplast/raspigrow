@@ -1,0 +1,17 @@
+name: publish
+on:
+  push:
+    branches:
+      - helm
+jobs:
+  helm:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Publish helm chart
+        uses: helm/chart-releaser-action@v1.4.0
+        with:
+          chart_dirs: k8s
+        env:
+          CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
