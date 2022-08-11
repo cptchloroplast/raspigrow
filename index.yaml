@@ -1,0 +1,14 @@
+apiVersion: v1
+entries:
+  grow:
+  - apiVersion: v2
+    appVersion: 0.1.0
+    created: "2022-08-11T03:44:49.597672972Z"
+    description: Greenhouse Automation Software
+    digest: 6a2106d08d6a4c9e30f187e5d87c5367ed6760a226b8effb84b3e7dfb735142c
+    name: grow
+    type: application
+    urls:
+    - https://github.com/okkema/grow/releases/download/grow-0.1.0/grow-0.1.0.tgz
+    version: 0.1.0
+generated: "2022-08-11T03:44:49.597677872Z"
