@@ -6,11 +6,14 @@ on:
 jobs:
   helm:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
         with:
           ref: helm
+          fetch-depth: 0
       - name: Publish helm chart
         uses: helm/chart-releaser-action@v1.4.0
         env:
