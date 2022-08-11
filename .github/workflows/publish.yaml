@@ -25,6 +25,6 @@ jobs:
       - name: Publish helm chart
         uses: helm/chart-releaser-action@v1.4.0
         with:
-          charts_dir: k8s
+          charts_dir: .
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
