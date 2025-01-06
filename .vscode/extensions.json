@@ -2,6 +2,8 @@
     // See http://go.microsoft.com/fwlink/?LinkId=827846
     // for the documentation about the extensions.json format
     "recommendations": [
+        "ms-dotnettools.vscode-dotnet-runtime",
+        "ms-dotnettools.csharp",
         "platformio.platformio-ide",
         "ms-python.python",
         "ms-azuretools.vscode-docker",

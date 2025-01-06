@@ -48,6 +48,18 @@
       "preLaunchTask": "server:start",
     },
     {
+      "name": "Worker",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "server:worker:build",
+      "program": "${workspaceFolder}/server/src/Grow.Worker/bin/Debug/net8.0/Grow.Worker.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}/server/src/Grow.Worker",
+      "console": "internalConsole",
+      "stopAtEntry": false,
+      "envFile": "${workspaceFolder}/server/.env"
+  },
+    {
       "name": "server:worker",
       "type": "python",
       "request": "launch",

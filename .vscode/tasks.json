@@ -2,6 +2,18 @@
 	"version": "2.0.0",
 	"tasks": [
     {
+      "label": "server:worker:build",
+      "command": "dotnet",
+      "type": "process",
+      "args": [
+          "build",
+          "${workspaceFolder}/server/src/Grow.Worker/Grow.Worker.csproj",
+          "/property:GenerateFullPaths=true",
+          "/consoleloggerparameters:NoSummary"
+      ],
+      "problemMatcher": "$msCompile"
+  },
+    {
       "label": "server:start",
       "dependsOn": [
         "redis:start",
