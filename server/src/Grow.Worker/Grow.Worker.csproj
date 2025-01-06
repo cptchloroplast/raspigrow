@@ -11,4 +11,8 @@
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.*" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Grow.Events.Handlers\Grow.Events.Handlers.csproj" />
+  </ItemGroup>
+
 </Project>
