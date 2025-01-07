@@ -13,7 +13,6 @@
         "github.vscode-pull-request-github",
         "eamodio.gitlens",
         "hediet.vscode-drawio",
-        "zixuanchen.vitest-explorer",
         "rpdswtk.vsmqtt",
         "mtxr.sqltools-driver-mysql"
     ],

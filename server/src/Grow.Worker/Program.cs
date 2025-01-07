@@ -10,16 +10,19 @@ IConfiguration configuration = new ConfigurationBuilder()
 IHost host = Host.CreateDefaultBuilder(args)
     .ConfigureServices(services =>
     {
-        services.AddMessageHandler<SensorReadingV1, SensorReadingV1Handler>();
-        services.AddChannelProducer<SensorReadingV1>();
+        services.AddMqttMessageHandler<SensorReadingV1, SensorReadingV1Handler>(configuration);
+        services.AddMqttProducer<SensorReadingV1>(configuration);
     })
     .Build();
 var services = host.Services;
 using var scope = services.CreateScope();
 var producer = scope.ServiceProvider.GetRequiredService<IProducer<SensorReadingV1>>();
 var random = new Random();
-await producer.WriteAsync(new SensorReadingV1{ 
-    Temperature = (float)random.NextDouble(), 
-    Humidity = (int)random.NextInt64(),
+_ = Task.Run(async () => {
+    await Task.Delay(5000);
+    await producer.WriteAsync(new SensorReadingV1{ 
+        Temperature = (float)random.NextDouble(), 
+        Humidity = (int)random.NextInt64(),
+    });
 });
 await host.RunAsync();
