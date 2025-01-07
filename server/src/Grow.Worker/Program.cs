@@ -1,8 +1,8 @@
 ﻿using Grow.Events;
-using Grow.Events.Handlers;
-using Okkema.Messages.Extensions;
+using Grow.Events.Handlers.Extensions;
 using Okkema.Queue.Extensions;
 using Okkema.Queue.Producers;
+using Okkema.SQL.Extensions;
 IConfiguration configuration = new ConfigurationBuilder()
     .AddJsonFile("appsettings.json")
     .AddEnvironmentVariables()
@@ -10,8 +10,10 @@ IConfiguration configuration = new ConfigurationBuilder()
 IHost host = Host.CreateDefaultBuilder(args)
     .ConfigureServices(services =>
     {
-        services.AddMqttMessageHandler<SensorReadingV1, SensorReadingV1Handler>(configuration);
-        services.AddMqttProducer<SensorReadingV1>(configuration);
+        services
+            .AddSQLite(configuration)
+            .AddEventHandlers(configuration)
+            .AddMqttProducer<SensorReadingV1>(configuration);
     })
     .Build();
 // Create random Sensor Reading to simulate client

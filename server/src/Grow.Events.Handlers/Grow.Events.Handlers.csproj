@@ -7,12 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="12.*" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.*" />
     <PackageReference Include="Okkema.Messages" Version="0.*" />
     <PackageReference Include="Okkema.Queue" Version="0.*" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Grow.Events\Grow.Events.csproj" />
+    <ProjectReference Include="..\Grow.Sensor\Grow.Sensor.csproj" />
   </ItemGroup>
 
 </Project>
