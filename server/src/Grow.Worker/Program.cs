@@ -14,6 +14,7 @@ IHost host = Host.CreateDefaultBuilder(args)
         services.AddMqttProducer<SensorReadingV1>(configuration);
     })
     .Build();
+// Create random Sensor Reading to simulate client
 var services = host.Services;
 using var scope = services.CreateScope();
 var producer = scope.ServiceProvider.GetRequiredService<IProducer<SensorReadingV1>>();

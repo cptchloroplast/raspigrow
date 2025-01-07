@@ -29,8 +29,13 @@
       "cwd": "${workspaceFolder}/app",
       "autoAttachChildProcesses": true,
       "program": "node_modules/vitest/vitest.mjs",
-      "skipFiles": ["<node_internals>/**", "**/node_modules/**"],
-      "args": ["run"],
+      "skipFiles": [
+        "<node_internals>/**",
+        "**/node_modules/**"
+      ],
+      "args": [
+        "run"
+      ],
       "smartStep": true,
       "console": "integratedTerminal"
     },
@@ -48,7 +53,7 @@
       "preLaunchTask": "server:start",
     },
     {
-      "name": "Worker",
+      "name": "server:worker",
       "type": "coreclr",
       "request": "launch",
       "preLaunchTask": "server:worker:build",
@@ -58,17 +63,18 @@
       "console": "internalConsole",
       "stopAtEntry": false,
       "envFile": "${workspaceFolder}/server/.env"
-  },
+    },
     {
-      "name": "server:worker",
-      "type": "python",
+      "name": "server:console",
+      "type": "coreclr",
       "request": "launch",
-      "cwd": "${workspaceFolder}/server",
-      "program": "main.py",
-      "console": "integratedTerminal",
-      "envFile": "${workspaceFolder}/server/.env",
-      "justMyCode": true,
-      "preLaunchTask": "server:start",
+      "preLaunchTask": "server:console:build",
+      "program": "${workspaceFolder}/server/src/Grow.Console/bin/Debug/net8.0/Grow.Console.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}/server/src/Grow.Console",
+      "console": "internalConsole",
+      "stopAtEntry": false,
+      "envFile": "${workspaceFolder}/server/.env"
     },
     {
       "name": "client",
