@@ -1,5 +1,5 @@
 {
-  "python.defaultInterpreterPath": "${workspaceFolder}/server/.venv/bin/python",
+  "python.defaultInterpreterPath": "${workspaceFolder}/client/.venv/bin/python",
   "yaml.schemas": {
     "https://json.schemastore.org/github-workflow.json": "file:///home/ben/Projects/grow/.github/workflows/deploy.yaml"
   },

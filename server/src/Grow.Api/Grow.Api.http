@@ -1,0 +1,6 @@
+@Grow.Api_HostAddress = http://localhost:5219
+
+GET {{Grow.Api_HostAddress}}/v1/sensor/stream
+Accept: application/json
+
+###

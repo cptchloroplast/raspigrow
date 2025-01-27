@@ -41,16 +41,15 @@
     },
     {
       "name": "server:api",
-      "type": "python",
+      "type": "coreclr",
       "request": "launch",
-      "cwd": "${workspaceFolder}/server",
-      "module": "uvicorn",
-      "args": [
-        "--factory",
-        "main:create_api"
-      ],
-      "justMyCode": true,
-      "preLaunchTask": "server:start",
+      "preLaunchTask": "server:api:build",
+      "program": "${workspaceFolder}/server/src/Grow.Api/bin/Debug/net8.0/Grow.Api.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}/server/src/Grow.Api",
+      "console": "internalConsole",
+      "stopAtEntry": false,
+      "envFile": "${workspaceFolder}/server/.env"
     },
     {
       "name": "server:worker",
