@@ -9,15 +9,11 @@
   "configurations": [
     {
       "name": "app",
-      "type": "pwa-node",
+      "type": "node-terminal",
       "request": "launch",
       "cwd": "${workspaceFolder}/app",
-      "runtimeExecutable": "npm",
-      "runtimeArgs": [
-        "run",
-        "start"
-      ],
       "envFile": "${workspaceFolder}/app/.env",
+      "command": "npm run start",
       "skipFiles": [
         "<node_internals>/**"
       ],

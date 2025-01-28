@@ -1,13 +1,9 @@
 import { useEffect, useState } from "react"
 
 export type SensorReading = {
-  timestamp: string
-  topic: string
-  event: "message"
-  data: {
-    temperature: number
-    humidity: number
-  }
+  Timestamp: string
+  Temperature: number
+  Humidity: number
 }
 
 export const V1_PATH = "/api/v1/sensor/stream"

@@ -53,8 +53,9 @@ public class SensorController : ControllerBase
         Response.ContentType = StreamContentType;
         await _consumer.ReadAsync(async (@event, ct) => {
             var model = _mapper.Map<Models.SensorReadingV1>(@event);
-            var json = JsonSerializer.Serialize(model);
-            await Response.WriteAsync(json, ct);
+            await Response.WriteAsync($"data: ", ct);
+            await JsonSerializer.SerializeAsync(Response.Body, model, cancellationToken: ct);
+            await Response.WriteAsync($"\n\n", ct);
             await Response.Body.FlushAsync(ct);
         }, cancellationToken);
     }
