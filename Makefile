@@ -16,14 +16,10 @@ app.test:
 	npm --prefix app test
 
 # Server
-server.install:
-	cd server; poetry install
-server.lint:
-	black server
-server.lint.check:
-	black --check server
+server.build:
+	dotnet build server
 server.test:
-	pytest server
+	dotnet test server
 ## API
 server.api.start:
 	docker compose up -d api
@@ -40,7 +36,7 @@ server.worker.stop:
 	docker compose stop worker
 ## Migrations
 server.migrations.upgrade:
-	cd server; alembic upgrade head
+	dotnet run --project server/src/Grow.Console
 
 # Client
 client.install:
@@ -77,4 +73,4 @@ mqtt.stop:
 # Git Hooks
 hooks.install:
 	git config core.hooksPath .githooks
-hooks.pre-commit: server.lint.check server.test client.test app.test
+hooks.pre-commit: server.test client.test app.test
