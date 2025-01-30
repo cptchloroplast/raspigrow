@@ -1,7 +1,7 @@
 #include <EspMQTTClient.h>
 #include <secrets.h>
 #include <arduino-timer.h>
-#include <dht.h>
+#include <Sensor.h>
 
 EspMQTTClient client(
   WIFI_SSID,
@@ -16,7 +16,7 @@ auto timer = timer_create_default();
 void setup()
 {
   Serial.begin(115200);
-  initDHT();
+  initSensor();
   client.enableDebuggingMessages();
   client.enableOTA();
   client.enableLastWillMessage("grow/v1/sensor/lastwill", "I am going offline");
@@ -25,7 +25,7 @@ void setup()
 void onConnectionEstablished()
 {
   timer.every(1000, [](void*) -> bool {
-    auto reading = readDHT();
+    auto reading = readSensor();
     String json = "";
     serializeJson(reading, json);
     client.publish("grow/v1/sensor", json.c_str());

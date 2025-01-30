@@ -65,6 +65,5 @@
       "port": 1883,
       "clientId": "vsmqtt_client"
     }
-  ],
-  
+  ]
 }

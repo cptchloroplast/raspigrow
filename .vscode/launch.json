@@ -75,9 +75,9 @@
       "name": "client",
       "type": "platformio-debug",
       "request": "launch",
-      "executable": "/home/ben/Projects/raspigrow/.pio/build/nodemcuv2/firmware.elf",
+      "executable": "${workspaceFolder}/client/.pio/build/nodemcuv2/firmware.elf",
       "projectEnvName": "nodemcuv2",
-      "toolchainBinDir": "/home/ben/.platformio/packages/toolchain-xtensa/bin",
+      "toolchainBinDir": "${env:HOME}/.platformio/packages/toolchain-xtensa/bin",
       "internalConsoleOptions": "openOnSessionStart",
       "preLaunchTask": {
         "type": "PlatformIO",
