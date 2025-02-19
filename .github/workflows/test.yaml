@@ -5,6 +5,8 @@ on:
 jobs:
   server:
     runs-on: ubuntu-latest
+    permissions:
+      packages: read
     env:
       TEST_INTEGRATION: True
     services:
