@@ -39,5 +39,5 @@ runs:
         platforms: amd64,linux/arm64,linux/arm/v7
         push: true
         target: ${{ inputs.target }}
-        # cache-from: type=registry,ref=${{ inputs.registry }}/${{ inputs.image }}:buildcache
+        cache-from: type=registry,ref=${{ inputs.registry }}/${{ inputs.image }}:buildcache
         cache-to: type=registry,ref=${{ inputs.registry }}/${{ inputs.image }}:buildcache,mode=max
