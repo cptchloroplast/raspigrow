@@ -17,33 +17,27 @@ jobs:
           - 3306:3306
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
-      - name: Install poetry
-        run: pipx install poetry
-      - name: Generate requirements.txt
-        working-directory: server
-        run: poetry export --dev -o requirements.txt
-      - name: Setup python
-        uses: actions/setup-python@v4
+        uses: actions/checkout@v4
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v4
         with:
-          python-version: '3.10'
-          cache: 'pip'
-      - name: Install dependencies with pip
-        working-directory: server
-        run: pip install -r requirements.txt
+          dotnet-version: 8.x
+          source-url: https://nuget.pkg.github.com/okkema/index.json
+        env:
+          NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
       - name: Run database migrations
         run: make server.migrations.upgrade
-      - name: Test server with pytest
+      - name: Test server with xunit
         run: make server.test
   client:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Setup python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.10'
+          python-version: '3.11'
       - name: Install PlatformIO
         run: pip install platformio
       - name: Run tests with unity
@@ -52,11 +46,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Setup node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: 16
+          node-version: 20
       - name: Install dependencies with npm
         run: make app.install
       - name: Run tests with vitest
