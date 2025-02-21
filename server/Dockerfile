@@ -1,6 +1,4 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-ARG NUGET_USERNAME
-ARG NUGET_PASSWORD
 WORKDIR /App
 COPY . /App
 RUN --mount=type=bind,target=. \
