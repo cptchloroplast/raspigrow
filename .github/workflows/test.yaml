@@ -8,7 +8,8 @@ jobs:
     permissions:
       packages: read
     env:
-      TEST_INTEGRATION: True
+      NUGET_USERNAME: ${{ secrets.NUGET_GITHUB_USER }}
+      NUGET_PASSWORD: ${{ secrets.NUGET_GITHUB_TOKEN }}
     services:
       mariadb:
         image: mariadb:10.8.3
@@ -24,9 +25,6 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 8.x
-          source-url: https://nuget.pkg.github.com/okkema/index.json
-        env:
-          NUGET_AUTH_TOKEN: ${{ secrets.NUGET_GITHUB_TOKEN }}
       - name: Run database migrations
         run: make server.migrations.upgrade
       - name: Test server with xunit
