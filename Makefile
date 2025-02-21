@@ -1,4 +1,5 @@
 -include client/.env
+-include server/.env
 export
 
 # App

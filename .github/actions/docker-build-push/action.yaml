@@ -1,17 +1,27 @@
 name: docker-build-push
+description: Build Docker container and push to registry
 inputs:
   registry:
+    description: Docker registry
     required: true
   username:
+    description: Docker username
     required: true
   password:
+    description: Docker password
     required: true
   image:
+    description: Docker image name
     required: true
   context:
+    description: Docker build context
     required: true
   target:
+    description: Docker build target
     required: true
+  secrets:
+    description: List of secrets environment variables
+    
 runs:
   using: "composite"
   steps:
@@ -31,7 +41,7 @@ runs:
       with:
         images: ${{ inputs.registry }}/${{ inputs.image }}
     - name: Build and push Docker image
-      uses: docker/build-push-action@v2
+      uses: docker/build-push-action@v6
       with:
         context: ${{ inputs.context }}
         tags: ${{ steps.meta.outputs.tags }}
@@ -41,3 +51,4 @@ runs:
         target: ${{ inputs.target }}
         cache-from: type=registry,ref=${{ inputs.registry }}/${{ inputs.image }}:buildcache
         cache-to: type=registry,ref=${{ inputs.registry }}/${{ inputs.image }}:buildcache,mode=max
+        secret-envs: ${{ inputs.secrets }}

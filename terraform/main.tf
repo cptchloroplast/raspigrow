@@ -1,6 +1,7 @@
 locals {
   secrets = {
     "TF_API_TOKEN" : var.TF_API_TOKEN,
+    "NUGET_GITHUB_USER" : var.NUGET_GITHUB_USER,
     "NUGET_GITHUB_TOKEN" : var.NUGET_GITHUB_TOKEN,
   }
 }
