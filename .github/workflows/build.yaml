@@ -29,6 +29,8 @@ jobs:
           image: ${{ env.image }}.api
           context: server
           target: api
+          secrets: |
+            "nuget_username=${{ secrets.NUGET_GITHUB_USER }}"
   worker:
     runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
@@ -49,6 +51,8 @@ jobs:
           image: ${{ env.image }}.worker
           context: server
           target: worker
+          secrets: |
+            "nuget_username=${{ secrets.NUGET_GITHUB_USER }}"
   migrations:
     runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
@@ -69,6 +73,8 @@ jobs:
           image: ${{ env.image }}.migrations
           context: server
           target: migrations
+          secrets: |
+            "nuget_username=${{ secrets.NUGET_GITHUB_USER }}"
   app:
     runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
