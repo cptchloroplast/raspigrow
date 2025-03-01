@@ -52,4 +52,4 @@ runs:
         cache-from: type=registry,ref=${{ inputs.registry }}/${{ inputs.image }}:buildcache
         cache-to: type=registry,ref=${{ inputs.registry }}/${{ inputs.image }}:buildcache,mode=max
         secrets: | 
-          ${{ inputs.secrets }}
+          "${{ inputs.secrets }}"
