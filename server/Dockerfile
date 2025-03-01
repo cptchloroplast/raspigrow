@@ -1,10 +1,11 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+ARG TARGETARCH
 WORKDIR /App
 COPY . /App
 RUN --mount=type=secret,id=nuget_username,env=NUGET_USERNAME \
     --mount=type=secret,id=nuget_password,env=NUGET_PASSWORD \
-    dotnet restore
-RUN dotnet publish -o out
+    dotnet restore -a $TARGETARCH
+RUN dotnet publish -o out -a $TARGETARCH
 
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
 WORKDIR /App
