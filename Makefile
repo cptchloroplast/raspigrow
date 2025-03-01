@@ -1,5 +1,9 @@
-include client/.env
-include server/.env
+ifneq (,$(wildcard client/.env))
+	include client/.env
+endif
+ifneq (,$(wildcard server/.env))
+	include server/.env
+endif
 export
 
 # App
