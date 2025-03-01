@@ -46,7 +46,7 @@ runs:
         context: ${{ inputs.context }}
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
-        platforms: amd64,linux/arm64,linux/arm/v7
+        platforms: amd64,linux/arm64
         push: true
         target: ${{ inputs.target }}
         cache-from: type=registry,ref=${{ inputs.registry }}/${{ inputs.image }}:buildcache
