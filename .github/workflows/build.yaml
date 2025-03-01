@@ -30,8 +30,8 @@ jobs:
           context: server
           target: api
           secrets: |
-            NUGET_USERNAME=${{ secrets.NUGET_GITHUB_USER }}
-            NUGET_PASSWORD=${{ secrets.NUGET_GITHUB_TOKEN }}
+            nuget_username=${{ secrets.NUGET_GITHUB_USER }}
+            nuget_password=${{ secrets.NUGET_GITHUB_TOKEN }}
   worker:
     runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
@@ -53,8 +53,8 @@ jobs:
           context: server
           target: worker
           secrets: |
-            NUGET_USERNAME=${{ secrets.NUGET_GITHUB_USER }}
-            NUGET_PASSWORD=${{ secrets.NUGET_GITHUB_TOKEN }}
+            nuget_username=${{ secrets.NUGET_GITHUB_USER }}
+            nuget_password=${{ secrets.NUGET_GITHUB_TOKEN }}
   migrations:
     runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
@@ -76,8 +76,8 @@ jobs:
           context: server
           target: migrations
           secrets: |
-            NUGET_USERNAME=${{ secrets.NUGET_GITHUB_USER }}
-            NUGET_PASSWORD=${{ secrets.NUGET_GITHUB_TOKEN }}
+            nuget_username=${{ secrets.NUGET_GITHUB_USER }}
+            nuget_password=${{ secrets.NUGET_GITHUB_TOKEN }}
   app:
     runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion == 'success' }}

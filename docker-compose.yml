@@ -20,6 +20,9 @@ services:
     build: 
       context: server
       target: api
+      secrets:
+        - nuget_username
+        - nuget_password
     environment:
       REDIS_HOSTNAME: redis
       SQL_HOSTNAME: sql
@@ -37,6 +40,9 @@ services:
     build: 
       context: server
       target: worker
+      secrets:
+        - nuget_username
+        - nuget_password
     environment:
       REDIS_HOSTNAME: redis
       SQL_HOSTNAME: sql
@@ -54,6 +60,9 @@ services:
     build: 
       context: server
       target: migrations
+      secrets:
+        - nuget_username
+        - nuget_password
     environment:
       SQL_HOSTNAME: sql
     depends_on:
@@ -87,3 +96,9 @@ services:
       - /home/pi/certbot/logs:/var/log/letsencrypt
       - /home/pi/certbot/cloudflare.ini:/cloudflare.ini
     command: certonly --dns-cloudflare --dns-cloudflare-credentials /cloudflare.ini --force-renewal --email ben@okkema.org -d grow.okkema.org --agree-tos
+
+secrets:
+  nuget_username:
+    environment: NUGET_USERNAME
+  nuget_password:
+    environment: NUGET_PASSWORD

@@ -1,8 +1,8 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /App
 COPY . /App
-RUN --mount=type=secret,id=NUGET_USERNAME,env=NUGET_USERNAME \
-    --mount=type=secret,id=NUGET_PASSWORD,env=NUGET_PASSWORD \
+RUN --mount=type=secret,id=nuget_username,env=NUGET_USERNAME \
+    --mount=type=secret,id=nuget_password,env=NUGET_PASSWORD \
     dotnet restore
 RUN dotnet publish -o out
 
