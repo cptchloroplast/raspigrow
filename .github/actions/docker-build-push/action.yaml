@@ -51,4 +51,5 @@ runs:
         target: ${{ inputs.target }}
         cache-from: type=registry,ref=${{ inputs.registry }}/${{ inputs.image }}:buildcache
         cache-to: type=registry,ref=${{ inputs.registry }}/${{ inputs.image }}:buildcache,mode=max
-        secret-envs: ${{ inputs.secrets }}
+        secret-envs: |
+          ${{ inputs.secrets }}
